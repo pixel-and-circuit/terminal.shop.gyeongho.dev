@@ -50,6 +50,10 @@ New or updated tests should cover:
 - View output when `Loading == false` (main view centered; header/footer present).
 - Resize: `tea.WindowSizeMsg` updates dimensions and subsequent View uses them for centering.
 
+## SC-004 Validation (90% test sessions)
+
+To validate that at least 90% of test sessions complete without layout-related blocking issues (spec SC-004), run the app across a **common sizes and terminals matrix**: e.g. sizes 80×24, 120×30, 160×40, 240×60 and at least three terminal types (e.g. iTerm2, Windows Terminal, one Linux emulator). For each combination, confirm no unreadable text, broken navigation, or persistent overflow. Document results or automate as a checklist; see tasks.md T014.
+
 ## Reference
 
 - Layout reference: [IsaiahPapa/terminal.shop](https://github.com/IsaiahPapa/terminal.shop) (loader, handler layout).
