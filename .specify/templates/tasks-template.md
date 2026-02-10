@@ -248,4 +248,5 @@ With multiple developers:
 - Verify tests fail before implementing
 - Commit after each task or logical group
 - Stop at any checkpoint to validate story independently
+- **Quality gate**: Agents MUST run `make format` and `make build` after code changes (see constitution).
 - Avoid: vague tasks, same file conflicts, cross-story dependencies that break independence

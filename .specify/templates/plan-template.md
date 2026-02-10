@@ -31,7 +31,13 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+Verify alignment with `.specify/memory/constitution.md`:
+
+- **Code Quality**: Approach supports formatting and style consistency.
+- **Testing Standards**: Testing strategy matches feature scope and standards.
+- **UX/UI Consistency**: User flows and UI choices fit project style (e.g. terminal UX for Mushroom).
+- **Model-First**: Design uses clear Go interfaces/structs reflecting domain objects.
+- **Quality Gates**: Plan assumes `make format` and `make build` run after code changes.
 
 ## Project Structure
 
