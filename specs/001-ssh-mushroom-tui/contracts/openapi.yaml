@@ -1,0 +1,144 @@
+openapi: 3.0.3
+info:
+  title: Mushroom TUI API
+  description: API for mushroom.gyeongho.dev TUI (products, about, faq, cart, orders)
+  version: 0.1.0
+servers:
+  - url: https://mushroom.gyeongho.dev/api
+    description: Production
+paths:
+  /products:
+    get:
+      summary: List products
+      operationId: getProducts
+      responses:
+        '200':
+          description: List of mushroom products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+  /about:
+    get:
+      summary: Store information (About page)
+      operationId: getAbout
+      responses:
+        '200':
+          description: About content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoreInfo'
+  /faq:
+    get:
+      summary: FAQ entries
+      operationId: getFAQ
+      responses:
+        '200':
+          description: FAQ list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FAQEntry'
+  /cart:
+    get:
+      summary: Get current cart
+      operationId: getCart
+      responses:
+        '200':
+          description: Current cart
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+    post:
+      summary: Add item to cart (or create cart)
+      operationId: addToCart
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddCartItem'
+      responses:
+        '200':
+          description: Updated cart
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+        '201':
+          description: Created
+  /orders:
+    post:
+      summary: Submit order (checkout)
+      operationId: submitOrder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cart'
+      responses:
+        '201':
+          description: Order created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          description: Bad request (e.g. empty cart)
+components:
+  schemas:
+    Product:
+      type: object
+      required: [id, name, price, quantity]
+      properties:
+        id: { type: string }
+        name: { type: string }
+        attributes: { type: array; items: { type: string } }
+        price: { type: number; format: double }
+        description: { type: string }
+        quantity: { type: integer; minimum: 0 }
+    CartItem:
+      type: object
+      required: [productId, name, unitPrice, quantity]
+      properties:
+        productId: { type: string }
+        name: { type: string }
+        unitPrice: { type: number }
+        quantity: { type: integer; minimum: 1 }
+    AddCartItem:
+      type: object
+      required: [productId, quantity]
+      properties:
+        productId: { type: string }
+        quantity: { type: integer; minimum: 1 }
+    Cart:
+      type: object
+      properties:
+        items: { type: array; items: { $ref: '#/components/schemas/CartItem' } }
+    StoreInfo:
+      type: object
+      properties:
+        title: { type: string }
+        body: { type: string }
+    FAQEntry:
+      type: object
+      required: [question, answer]
+      properties:
+        question: { type: string }
+        answer: { type: string }
+    Order:
+      type: object
+      required: [id, status]
+      properties:
+        id: { type: string }
+        items: { type: array; items: { $ref: '#/components/schemas/CartItem' } }
+        total: { type: number }
+        status: { type: string }
+        createdAt: { type: string; format: date-time }
