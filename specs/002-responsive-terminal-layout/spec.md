@@ -5,6 +5,8 @@
 **Status**: Draft  
 **Input**: User description: "mushroom.gyeongho.dev는 어떤 터미널을 사용하던, 터미널의 사이즈가 어떻던 자동으로 크기에 맞춰 최적화되어야 한다"
 
+**Terminology**: In this spec, "site" and "app" both refer to the mushroom.gyeongho.dev TUI (terminal user interface).
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - View Content in Any Terminal Size (Priority: P1)
@@ -20,6 +22,7 @@ A user opens mushroom.gyeongho.dev in their terminal (whether iTerm2, Windows Te
 1. **Given** a user has a terminal open at 80 columns × 24 rows, **When** they open mushroom.gyeongho.dev, **Then** the content is laid out to fit the width and key information is visible without horizontal scrolling.
 2. **Given** a user has a terminal at 160 columns × 40 rows, **When** they open the site, **Then** the layout uses the available space appropriately (e.g. no excessive narrow columns or wasted space).
 3. **Given** the user is using any common terminal emulator (e.g. iTerm2, Windows Terminal, Alacritty), **When** they open the site, **Then** the optimized layout behaves consistently.
+4. **Given** the user opens the app for the first time, **When** the initial screen is shown, **Then** a centered loading view is displayed with a random-character (Base64-style) rectangle and an inner loading message (e.g. "Loading mushroom.gyeongho.dev") before the main view appears.
 
 ---
 
@@ -59,7 +62,7 @@ A user switches between different terminals (e.g. laptop vs SSH session, differe
 - What happens when the terminal is very small (e.g. 40 columns × 10 rows)? Content should still be accessible (e.g. scrollable or simplified) without breaking the interface.
 - What happens when the terminal is very large (e.g. 300+ columns)? Layout should use space sensibly (e.g. no single long line of text; wrapping or max width where appropriate).
 - How does the system behave when the user resizes the terminal rapidly or repeatedly? Layout updates should remain correct and stable.
-- How does the system behave when terminal dimensions are reported incorrectly or change in an unexpected way? The experience should degrade gracefully (e.g. fallback to a safe minimum width).
+- How does the system behave when terminal dimensions are reported incorrectly or change in an unexpected way? The experience should degrade gracefully (e.g. fallback to a safe minimum width). *Safe minimum width is defined as 40 columns; below that, the layout may use vertical scroll or a simplified view.*
 
 ## Requirements *(mandatory)*
 
@@ -71,6 +74,7 @@ A user switches between different terminals (e.g. laptop vs SSH session, differe
 - **FR-004**: At small terminal sizes, the system MUST keep primary content readable and navigable (e.g. via reflow, wrapping, or vertical scroll—not cut-off or permanently hidden).
 - **FR-005**: At large terminal sizes, the system MUST use space appropriately (e.g. avoid excessively long lines or wasted space) so that the layout remains comfortable to read and use.
 - **FR-006**: The system MUST behave in a stable way when dimensions change (e.g. no persistent visual corruption or layout loops after resize).
+- **FR-007**: On first load, the system MUST show a centered loading view with a random-character (Base64-style) rectangle and an inner loading message before displaying the main view (header, menu, body).
 
 ### Assumptions
 
@@ -78,6 +82,7 @@ A user switches between different terminals (e.g. laptop vs SSH session, differe
 - Terminal size is defined by visible columns and rows (or equivalent) that the environment provides or that can be detected.
 - A “reasonable” minimum size (e.g. 80×24 or similar) is assumed for defining “readable”; smaller sizes may use a minimal or scroll-only layout.
 - No specific maximum size is mandated; “very large” terminals are handled by sensible use of width (e.g. max line length or column limits) rather than stretching indefinitely.
+- For graceful degradation when dimensions are wrong or very small, the safe minimum width is 40 columns; below that, the layout may use vertical scroll or a simplified view.
 
 ## Success Criteria *(mandatory)*
 
