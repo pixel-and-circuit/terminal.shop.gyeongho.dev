@@ -2,7 +2,33 @@
 
 > A nostalgic terminal-based shopping experience for dad's mushroom farm.
 
-Project governance and principles (code quality, testing, UX/UI consistency, model-first design, quality gates) are defined in [.specify/memory/constitution.md](.specify/memory/constitution.md).
+## Quick start
+
+- **Run TUI**: `make build && ./bin/mushroom` or `go run ./cmd/mushroom`
+- **Keys**: `a` Shop, `s` About, `d` FAQ, `c` Cart, Up/Down scroll, `q` quit
+- **SSH** (when server is configured): `ssh -a -i /dev/null mushroom.gyeongho.dev`
+
+See [specs/001-ssh-mushroom-tui/quickstart.md](specs/001-ssh-mushroom-tui/quickstart.md) for full setup, Makefile targets, and tests.
+
+## Commands (Makefile)
+
+| Target                    | Description                    |
+| ------------------------- | ------------------------------ |
+| `make format`             | Format Go code (gofmt)         |
+| `make build`              | Build binary to `bin/mushroom` |
+| `make test`               | Run tests                      |
+| `make pre-commit-install` | Install pre-commit hooks       |
+
+## Project layout
+
+```
+cmd/mushroom/         # TUI entrypoint
+internal/model/       # Domain (Product, Cart, Order, StoreInfo, FAQ)
+internal/apiclient/   # API client interface + mock + HTTP
+internal/tui/         # Bubble Tea app, header, footer, pages
+tests/unit/           # Unit tests
+tests/integration/    # Integration tests
+```
 
 ## Inspiration
 
