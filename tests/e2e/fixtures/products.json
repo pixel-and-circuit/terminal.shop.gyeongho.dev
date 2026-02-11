@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1",
+    "name": "Oyster Mushroom",
+    "attributes": ["fresh"],
+    "price": 800,
+    "description": "Oyster mushroom (Neutari), per 100g.",
+    "quantity": 100
+  },
+  {
+    "id": "2",
+    "name": "Enoki Mushroom",
+    "attributes": ["fresh"],
+    "price": 350,
+    "description": "Enoki mushroom (Paeng-i), per 100g.",
+    "quantity": 100
+  },
+  {
+    "id": "3",
+    "name": "Button Mushroom",
+    "attributes": ["fresh"],
+    "price": 2000,
+    "description": "Button mushroom (Yang song-i), per 100g.",
+    "quantity": 100
+  },
+  {
+    "id": "4",
+    "name": "King Oyster Mushroom",
+    "attributes": ["fresh"],
+    "price": 300,
+    "description": "King oyster mushroom (Sae song-i), per 100g.",
+    "quantity": 100
+  },
+  {
+    "id": "5",
+    "name": "Shiitake Mushroom",
+    "attributes": ["fresh"],
+    "price": 700,
+    "description": "Shiitake mushroom (Pyogo), per 100g.",
+    "quantity": 100
+  }
+]

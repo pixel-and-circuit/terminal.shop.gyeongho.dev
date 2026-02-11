@@ -1,0 +1,12 @@
+[
+  {
+    "id": "faq-1",
+    "question": "How do I order?",
+    "answer": "Use key (a) for Shop, add to cart, then (c) for cart and checkout."
+  },
+  {
+    "id": "faq-2",
+    "question": "What payment do you accept?",
+    "answer": "Payment options are configured at checkout."
+  }
+]

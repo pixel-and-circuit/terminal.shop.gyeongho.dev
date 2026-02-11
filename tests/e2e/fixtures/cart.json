@@ -1,0 +1,10 @@
+{
+  "items": [
+    {
+      "productId": "1",
+      "name": "Oyster Mushroom",
+      "unitPrice": 800,
+      "quantity": 2
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "e2e-order-1",
+  "items": [
+    {
+      "productId": "1",
+      "name": "Oyster Mushroom",
+      "unitPrice": 800,
+      "quantity": 2
+    }
+  ],
+  "total": 1600,
+  "status": "confirmed",
+  "createdAt": "2025-01-15T10:00:00Z"
+}
