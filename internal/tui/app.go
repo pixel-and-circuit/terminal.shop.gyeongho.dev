@@ -1,14 +1,21 @@
 package tui
 
 import (
+	"strings"
+	"time"
+
 	"mushroom.gyeongho.dev/internal/apiclient"
 	"mushroom.gyeongho.dev/internal/model"
 	"mushroom.gyeongho.dev/internal/tui/pages"
 
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/charmbracelet/lipgloss"
 )
 
-// Page is the current TUI section.
+// loadCompleteMsg is sent when the loading phase ends.
+type loadCompleteMsg struct{}
+
+// Page identifies the current TUI section.
 type Page int
 
 const (
@@ -36,7 +43,7 @@ func (p Page) String() string {
 	}
 }
 
-// Model is the root Bubble Tea model.
+// Model is the root Bubble Tea model for the TUI.
 type Model struct {
 	Client       apiclient.Client
 	CurrentPage  Page
@@ -52,23 +59,26 @@ type Model struct {
 	Error        string
 }
 
-// NewModel returns an initial model (inject client from main).
+// NewModel returns an initial model with the given API client.
 func NewModel(client apiclient.Client) Model {
 	return Model{
 		Client:      client,
 		CurrentPage: PageLanding,
-		Width:       60,
+		Width:       80,
 		Height:      24,
+		Loading:     true,
 		Cart:        model.Cart{},
 	}
 }
 
-// Init runs once at start; can trigger loading.
+// Init runs once at start and returns a command that sends loadCompleteMsg after a delay.
 func (m Model) Init() tea.Cmd {
-	return nil
+	return tea.Tick(2*time.Second, func(t time.Time) tea.Msg {
+		return loadCompleteMsg{}
+	})
 }
 
-// Update handles messages (key, window size).
+// Update handles key events, window resize, and load-complete messages.
 func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
@@ -94,14 +104,14 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case KeyUp:
 			if m.CurrentPage == PageShop && m.Cursor > 0 {
 				m.Cursor--
-			} else if m.CurrentPage == PageFAQ && m.ScrollOffset > 0 {
+			} else if m.ScrollOffset > 0 {
 				m.ScrollOffset--
 			}
 			return m, nil
 		case KeyDown:
 			if m.CurrentPage == PageShop && m.Cursor < len(m.Products)-1 {
 				m.Cursor++
-			} else if m.CurrentPage == PageFAQ && m.ScrollOffset < len(m.FAQ)-1 {
+			} else {
 				m.ScrollOffset++
 			}
 			return m, nil
@@ -120,24 +130,51 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.Width = msg.Width
 		m.Height = msg.Height
 		return m, nil
+	case loadCompleteMsg:
+		m.Loading = false
+		return m, nil
 	}
 	return m, nil
 }
 
-// View renders the TUI: header + body (by page) + footer.
+const (
+	maxContentWidth = 60
+	headerLines     = 3
+	footerLines     = 2
+	maxBodyHeight   = 40
+)
+
+// View returns the current frame: a centered loading view or a centered main view
+// (header, body, footer). Layout is responsive to Width and Height; output is
+// clipped to the viewport height so the menu is never cut off.
 func (m Model) View() string {
+	w, h := m.Width, m.Height
+	if w <= 0 {
+		w = 80
+	}
+	if h <= 0 {
+		h = 24
+	}
+	if m.Loading {
+		loadingView := Loader()
+		return lipgloss.Place(w, h, lipgloss.Center, lipgloss.Center, loadingView)
+	}
 	header := RenderHeader(m.CurrentPage, m.Cart.Total(), m.Cart.ItemCount())
 	footer := RenderFooter()
+	bodyWidth := w
+	if bodyWidth > maxContentWidth {
+		bodyWidth = maxContentWidth
+	}
 	var body string
 	switch m.CurrentPage {
 	case PageLanding:
 		body = pages.Landing()
 	case PageShop:
-		body = pages.Shop(m.Products, m.ScrollOffset, m.Cursor, m.Width)
+		body = pages.Shop(m.Products, m.ScrollOffset, m.Cursor, bodyWidth)
 	case PageAbout:
 		body = pages.About(m.About)
 	case PageFAQ:
-		body = pages.FAQ(m.FAQ, m.ScrollOffset, m.Width)
+		body = pages.FAQ(m.FAQ, bodyWidth)
 	case PageCart:
 		body = pages.Cart(m.Cart)
 	default:
@@ -146,5 +183,59 @@ func (m Model) View() string {
 	if m.Error != "" {
 		body = "Error: " + m.Error + "\n\nPress a/s/d to continue."
 	}
-	return header + "\n" + body + "\n" + footer
+	body = lipgloss.NewStyle().Width(bodyWidth).MaxWidth(bodyWidth).Render(body)
+	available := h - headerLines - footerLines
+	mainVerticalPad := 0
+	if available > 14 {
+		mainVerticalPad = 2
+	}
+	if available > 24 {
+		mainVerticalPad = 4
+	}
+	bodyHeight := available - 2*mainVerticalPad
+	if bodyHeight < 1 {
+		bodyHeight = 1
+	}
+	if bodyHeight > maxBodyHeight {
+		bodyHeight = maxBodyHeight
+	}
+	body = bodyViewport(body, m.ScrollOffset, bodyHeight)
+	mainView := header + "\n" + body + "\n" + footer
+	if mainVerticalPad > 0 {
+		mainView = strings.Repeat("\n", mainVerticalPad) + mainView + strings.Repeat("\n", mainVerticalPad)
+	}
+	mainViewLines := strings.Split(mainView, "\n")
+	if len(mainViewLines) > h {
+		mainViewLines = mainViewLines[:h]
+		mainView = strings.Join(mainViewLines, "\n")
+	}
+	return lipgloss.Place(w, h, lipgloss.Center, lipgloss.Center, mainView)
+}
+
+// bodyViewport returns exactly height lines: a window into content at scrollOffset, padded with blank lines if needed.
+func bodyViewport(content string, scrollOffset, height int) string {
+	lines := strings.Split(content, "\n")
+	if height <= 0 {
+		return content
+	}
+	maxScroll := len(lines) - height
+	if maxScroll < 0 {
+		maxScroll = 0
+	}
+	start := scrollOffset
+	if start > maxScroll {
+		start = maxScroll
+	}
+	if start < 0 {
+		start = 0
+	}
+	end := start + height
+	if end > len(lines) {
+		end = len(lines)
+	}
+	visible := lines[start:end]
+	for len(visible) < height {
+		visible = append(visible, "")
+	}
+	return strings.Join(visible, "\n")
 }
