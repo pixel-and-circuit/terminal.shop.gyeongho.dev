@@ -23,7 +23,7 @@
 
 **Purpose**: Verify project and dependencies are ready for layout changes
 
-- [ ] T001 Verify Go module and Charm Bubble Tea / Lip Gloss dependencies; confirm `internal/tui/` and `cmd/mushroom/` exist per plan in repo root
+- [x] T001 Verify Go module and Charm Bubble Tea / Lip Gloss dependencies; confirm `internal/tui/` and `cmd/mushroom/` exist per plan in repo root
 
 ---
 
@@ -33,12 +33,12 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T002 Add `Loading` field to Model and handle load-complete message (e.g. `tea.Tick` then set `Loading = false`) in `internal/tui/app.go`
-- [ ] T003 [P] Implement terminal.shop-style loading view: Base64-style random character rectangle (e.g. 40×20) with inner centered line (e.g. "Loading mushroom.gyeongho.dev") in `internal/tui/loader.go`
-- [ ] T004 In `View()`, when `Loading` is true return output of loader centered with `lipgloss.Place(Width, Height, Center, Center, loadingView)` in `internal/tui/app.go`
-- [ ] T005 In `View()`, when `Loading` is false build main view (header + body + footer) and return it centered with `lipgloss.Place(Width, Height, Center, Center, mainView)` in `internal/tui/app.go`
-- [ ] T006 Apply max content width (e.g. 60) for main view body so the centered block does not over-stretch on very wide terminals in `internal/tui/app.go` and/or `internal/tui/pages/` as needed
-- [ ] T007 [P] Add or extend unit test for `View()` when `Loading` is true: loading view is centered and contains loader content (random-character rectangle, inner text) in `tests/unit/` (e.g. `tui_view_test.go` or equivalent)
+- [x] T002 Add `Loading` field to Model and handle load-complete message (e.g. `tea.Tick` then set `Loading = false`) in `internal/tui/app.go`
+- [x] T003 [P] Implement terminal.shop-style loading view: Base64-style random character rectangle (e.g. 40×20) with inner centered line (e.g. "Loading mushroom.gyeongho.dev") in `internal/tui/loader.go`
+- [x] T004 In `View()`, when `Loading` is true return output of loader centered with `lipgloss.Place(Width, Height, Center, Center, loadingView)` in `internal/tui/app.go`
+- [x] T005 In `View()`, when `Loading` is false build main view (header + body + footer) and return it centered with `lipgloss.Place(Width, Height, Center, Center, mainView)` in `internal/tui/app.go`
+- [x] T006 Apply max content width (e.g. 60) for main view body so the centered block does not over-stretch on very wide terminals in `internal/tui/app.go` and/or `internal/tui/pages/` as needed
+- [x] T007 [P] Add or extend unit test for `View()` when `Loading` is true: loading view is centered and contains loader content (random-character rectangle, inner text) in `tests/unit/` (e.g. `tui_view_test.go` or equivalent)
 
 **Checkpoint**: Foundation ready—loading screen and main view are centered; content width is capped; loading view is covered by test. User story implementation can proceed.
 
@@ -52,8 +52,8 @@
 
 ### Implementation for User Story 1
 
-- [ ] T008 [US1] Ensure header and body content wrap and fit within capped width so 80×24 and 160×40 acceptance scenarios pass in `internal/tui/header.go` and `internal/tui/pages/*.go`
-- [ ] T009 [US1] Add or extend unit test for `View()` when `Loading` is false: main view is centered and contains header and footer in `tests/unit/` (e.g. `tui_view_test.go` or equivalent)
+- [x] T008 [US1] Ensure header and body content wrap and fit within capped width so 80×24 and 160×40 acceptance scenarios pass in `internal/tui/header.go` and `internal/tui/pages/*.go`
+- [x] T009 [US1] Add or extend unit test for `View()` when `Loading` is false: main view is centered and contains header and footer in `tests/unit/` (e.g. `tui_view_test.go` or equivalent)
 
 **Checkpoint**: User Story 1 is independently testable; content fits at common terminal sizes.
 
@@ -67,8 +67,8 @@
 
 ### Implementation for User Story 2
 
-- [ ] T010 [US2] Ensure `tea.WindowSizeMsg` in `Update()` stores `Width` and `Height` and triggers re-render (no debounce that delays layout beyond 2s); ensure no layout loops or visual corruption on repeated or rapid resize in `internal/tui/app.go`
-- [ ] T011 [US2] Add or extend test for resize: send `tea.WindowSizeMsg` and assert `View()` output uses new dimensions (e.g. centered block reflects new size) in `tests/unit/` or `tests/integration/`
+- [x] T010 [US2] Ensure `tea.WindowSizeMsg` in `Update()` stores `Width` and `Height` and triggers re-render (no debounce that delays layout beyond 2s); ensure no layout loops or visual corruption on repeated or rapid resize in `internal/tui/app.go`
+- [x] T011 [US2] Add or extend test for resize: send `tea.WindowSizeMsg` and assert `View()` output uses new dimensions (e.g. centered block reflects new size) in `tests/unit/` or `tests/integration/`
 
 **Checkpoint**: User Stories 1 and 2 both work; resize updates layout in a timely manner.
 
@@ -82,7 +82,7 @@
 
 ### Implementation for User Story 3
 
-- [ ] T012 [US3] Verify `View()` and layout logic use only model `Width` and `Height` (no hardcoded terminal or emulator checks) so behavior is consistent in `internal/tui/app.go` and `internal/tui/loader.go`
+- [x] T012 [US3] Verify `View()` and layout logic use only model `Width` and `Height` (no hardcoded terminal or emulator checks) so behavior is consistent in `internal/tui/app.go` and `internal/tui/loader.go`
 
 **Checkpoint**: All three user stories are independently functional; layout is dimension-driven only.
 
@@ -92,8 +92,8 @@
 
 **Purpose**: Quality gate and validation
 
-- [ ] T013 Run `make format` and `make build`; fix any format or compile errors
-- [ ] T014 Validate run and resize steps from `specs/002-responsive-terminal-layout/quickstart.md` (manual or automated as appropriate); document or run SC-004 validation (common sizes and terminals matrix) per quickstart.md
+- [x] T013 Run `make format` and `make build`; fix any format or compile errors
+- [x] T014 Validate run and resize steps from `specs/002-responsive-terminal-layout/quickstart.md` (manual or automated as appropriate); document or run SC-004 validation (common sizes and terminals matrix) per quickstart.md
 
 ---
 
