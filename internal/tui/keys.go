@@ -1,6 +1,6 @@
 package tui
 
-// Key bindings (terminal.shop style)
+// Key bindings for navigation and actions.
 const (
 	KeyShop  = "a"
 	KeyAbout = "s"

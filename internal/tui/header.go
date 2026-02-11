@@ -17,7 +17,7 @@ func centerText(s string, width int) string {
 	return strings.Repeat(" ", pad) + s + strings.Repeat(" ", width-pad-len(s))
 }
 
-// RenderHeader returns the header (terminal.shop style: logo, a shop, s about, d faq, cart).
+// RenderHeader returns the nav header (logo, shop, about, faq, cart) with the current page highlighted.
 func RenderHeader(currentPage Page, cartTotal float64, cartCount int) string {
 	cartStr := centerText(fmt.Sprintf("cart $%.2f [%d]", cartTotal, cartCount), 20)
 	parts := []struct {
