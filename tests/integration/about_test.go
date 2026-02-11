@@ -13,10 +13,12 @@ import (
 
 func TestPressSShowsAboutContent(t *testing.T) {
 	m := tui.NewModel(apiclient.MockClient{})
+	m.Loading = false
 	about, _ := (apiclient.MockClient{}).GetAbout(context.Background())
 	m.About = about
 	updated, _ := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'s'}})
 	mod := updated.(tui.Model)
+	mod.Loading = false
 	if mod.CurrentPage != tui.PageAbout {
 		t.Fatalf("expected PageAbout after s, got %v", mod.CurrentPage)
 	}
