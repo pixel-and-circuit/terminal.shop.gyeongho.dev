@@ -5,7 +5,7 @@ import (
 	"mushroom.gyeongho.dev/internal/model"
 )
 
-// Cart renders the cart page (list items, total, checkout hint).
+// Cart renders the cart page: items, total, and checkout hint.
 func Cart(c model.Cart) string {
 	if len(c.Items) == 0 {
 		return "Cart is empty.\n\nPress a to go to shop."
