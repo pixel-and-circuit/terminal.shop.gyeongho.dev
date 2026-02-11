@@ -53,6 +53,7 @@ type Model struct {
 	Cursor       int
 	Products     []model.Product
 	Cart         model.Cart
+	AddQuantity  int // quantity to add on next Enter (Shop page); min 1
 	About        model.StoreInfo
 	FAQ          []model.FAQEntry
 	Loading      bool
@@ -68,6 +69,7 @@ func NewModel(client apiclient.Client) Model {
 		Height:      24,
 		Loading:     true,
 		Cart:        model.Cart{},
+		AddQuantity: 1,
 	}
 }
 
@@ -88,6 +90,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case KeyShop:
 			m.CurrentPage = PageShop
 			m.ScrollOffset, m.Cursor = 0, 0
+			m.AddQuantity = 1
 			return m, nil
 		case KeyAbout:
 			m.CurrentPage = PageAbout
@@ -100,9 +103,13 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case KeyCart:
 			m.CurrentPage = PageCart
 			m.ScrollOffset = 0
+			m.Cursor = 0
 			return m, nil
 		case KeyUp:
 			if m.CurrentPage == PageShop && m.Cursor > 0 {
+				m.Cursor--
+				m.AddQuantity = 1
+			} else if m.CurrentPage == PageCart && len(m.Cart.Items) > 0 && m.Cursor > 0 {
 				m.Cursor--
 			} else if m.ScrollOffset > 0 {
 				m.ScrollOffset--
@@ -111,17 +118,50 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case KeyDown:
 			if m.CurrentPage == PageShop && m.Cursor < len(m.Products)-1 {
 				m.Cursor++
+				m.AddQuantity = 1
+			} else if m.CurrentPage == PageCart && len(m.Cart.Items) > 0 && m.Cursor < len(m.Cart.Items)-1 {
+				m.Cursor++
 			} else {
 				m.ScrollOffset++
+			}
+			return m, nil
+		case KeyPlus:
+			if m.CurrentPage == PageShop {
+				m.AddQuantity++
+			}
+			return m, nil
+		case KeyMinus:
+			if m.CurrentPage == PageCart && len(m.Cart.Items) > 0 {
+				m.Cart.DecreaseQuantity(m.Cursor)
+				if len(m.Cart.Items) > 0 && m.Cursor >= len(m.Cart.Items) {
+					m.Cursor = len(m.Cart.Items) - 1
+				} else {
+					m.Cursor = 0
+				}
+			} else if m.CurrentPage == PageShop && m.AddQuantity > 1 {
+				m.AddQuantity--
+			}
+			return m, nil
+		case KeyBackspace:
+			if m.CurrentPage == PageCart && len(m.Cart.Items) > 0 {
+				m.Cart.RemoveItem(m.Cursor)
+				if len(m.Cart.Items) > 0 && m.Cursor >= len(m.Cart.Items) {
+					m.Cursor = len(m.Cart.Items) - 1
+				} else {
+					m.Cursor = 0
+				}
 			}
 			return m, nil
 		case KeyEnter:
 			if m.CurrentPage == PageShop && len(m.Products) > 0 && m.Cursor >= 0 && m.Cursor < len(m.Products) {
 				p := m.Products[m.Cursor]
 				if p.Quantity > 0 {
-					m.Cart.Items = append(m.Cart.Items, model.CartItem{
-						ProductID: p.ID, Name: p.Name, UnitPrice: p.Price, Quantity: 1,
-					})
+					qty := m.AddQuantity
+					if qty > p.Quantity {
+						qty = p.Quantity
+					}
+					m.Cart.AddOrMergeItem(p.ID, p.Name, p.Price, qty, p.Quantity)
+					m.AddQuantity = 1
 				}
 			}
 			return m, nil
@@ -170,13 +210,13 @@ func (m Model) View() string {
 	case PageLanding:
 		body = pages.Landing()
 	case PageShop:
-		body = pages.Shop(m.Products, m.ScrollOffset, m.Cursor, bodyWidth)
+		body = pages.Shop(m.Products, m.ScrollOffset, m.Cursor, bodyWidth, m.AddQuantity)
 	case PageAbout:
 		body = pages.About(m.About)
 	case PageFAQ:
 		body = pages.FAQ(m.FAQ, bodyWidth)
 	case PageCart:
-		body = pages.Cart(m.Cart)
+		body = pages.Cart(m.Cart, m.Cursor)
 	default:
 		body = pages.Landing()
 	}
