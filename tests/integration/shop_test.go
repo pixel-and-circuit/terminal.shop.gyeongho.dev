@@ -15,6 +15,7 @@ func TestOpenShopAddToCartOpenCart(t *testing.T) {
 	client := apiclient.MockClient{}
 	prods, _ := client.GetProducts(context.Background())
 	m := tui.NewModel(client)
+	m.Loading = false
 	m.Products = prods
 	m.CurrentPage = tui.PageShop
 	m.Cursor = 0
@@ -27,6 +28,7 @@ func TestOpenShopAddToCartOpenCart(t *testing.T) {
 	// Open cart (c)
 	updated, _ = mod.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'c'}})
 	mod = updated.(tui.Model)
+	mod.Loading = false
 	if mod.CurrentPage != tui.PageCart {
 		t.Errorf("expected PageCart after c, got %v", mod.CurrentPage)
 	}
