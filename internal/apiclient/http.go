@@ -1,6 +1,7 @@
 package apiclient
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -11,12 +12,16 @@ import (
 )
 
 // HTTPClient calls mushroom.gyeongho.dev/api (or base URL from env).
+// If UserID is set (or MUSHROOM_USER_ID env), it sends X-User-Id on every request for user-scoped data.
 type HTTPClient struct {
 	BaseURL string
 	Client  *http.Client
+	// UserID is sent as X-User-Id header when non-empty (e.g. SSH key fingerprint from gateway).
+	UserID string
 }
 
 // NewHTTPClient returns a client for the given base URL (e.g. https://mushroom.gyeongho.dev/api).
+// UserID is set from MUSHROOM_USER_ID when empty so the gateway can inject identity via env.
 func NewHTTPClient(baseURL string) *HTTPClient {
 	if baseURL == "" {
 		baseURL = os.Getenv("MUSHROOM_API_BASE")
@@ -24,7 +29,14 @@ func NewHTTPClient(baseURL string) *HTTPClient {
 			baseURL = "https://mushroom.gyeongho.dev/api"
 		}
 	}
-	return &HTTPClient{BaseURL: baseURL, Client: http.DefaultClient}
+	userID := os.Getenv("MUSHROOM_USER_ID")
+	return &HTTPClient{BaseURL: baseURL, Client: http.DefaultClient, UserID: userID}
+}
+
+func (c *HTTPClient) setUserIDHeader(req *http.Request) {
+	if c.UserID != "" {
+		req.Header.Set("X-User-Id", c.UserID)
+	}
 }
 
 // GetProducts implements Client.
@@ -33,6 +45,7 @@ func (c *HTTPClient) GetProducts(ctx context.Context) ([]model.Product, error) {
 	if err != nil {
 		return nil, err
 	}
+	c.setUserIDHeader(req)
 	resp, err := c.Client.Do(req)
 	if err != nil {
 		return nil, err
@@ -54,6 +67,7 @@ func (c *HTTPClient) GetAbout(ctx context.Context) (model.StoreInfo, error) {
 	if err != nil {
 		return model.StoreInfo{}, err
 	}
+	c.setUserIDHeader(req)
 	resp, err := c.Client.Do(req)
 	if err != nil {
 		return model.StoreInfo{}, err
@@ -75,6 +89,7 @@ func (c *HTTPClient) GetFAQ(ctx context.Context) ([]model.FAQEntry, error) {
 	if err != nil {
 		return nil, err
 	}
+	c.setUserIDHeader(req)
 	resp, err := c.Client.Do(req)
 	if err != nil {
 		return nil, err
@@ -96,6 +111,7 @@ func (c *HTTPClient) GetCart(ctx context.Context) (*model.Cart, error) {
 	if err != nil {
 		return nil, err
 	}
+	c.setUserIDHeader(req)
 	resp, err := c.Client.Do(req)
 	if err != nil {
 		return nil, err
@@ -117,9 +133,26 @@ func (c *HTTPClient) AddToCart(ctx context.Context, productID string, quantity i
 		ProductID string `json:"productId"`
 		Quantity  int    `json:"quantity"`
 	}{productID, quantity}
-	// Simplified: no request body sent; real impl would POST JSON
-	_ = body
-	return c.GetCart(ctx)
+	bodyBytes, _ := json.Marshal(body)
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, c.BaseURL+"/cart", bytes.NewReader(bodyBytes))
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("Content-Type", "application/json")
+	c.setUserIDHeader(req)
+	resp, err := c.Client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusCreated {
+		return nil, fmt.Errorf("cart: %s", resp.Status)
+	}
+	var out model.Cart
+	if err := json.NewDecoder(resp.Body).Decode(&out); err != nil {
+		return nil, err
+	}
+	return &out, nil
 }
 
 // SubmitOrder implements Client.
@@ -128,6 +161,7 @@ func (c *HTTPClient) SubmitOrder(ctx context.Context, cart *model.Cart) (*model.
 	if err != nil {
 		return nil, err
 	}
+	c.setUserIDHeader(req)
 	resp, err := c.Client.Do(req)
 	if err != nil {
 		return nil, err
