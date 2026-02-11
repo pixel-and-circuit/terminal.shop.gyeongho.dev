@@ -16,8 +16,8 @@ func Cart(c model.Cart, selectedIndex int) string {
 		if j == selectedIndex {
 			cursor = "> "
 		}
-		s += fmt.Sprintf("%s%s x%d $%.2f\n", cursor, i.Name, i.Quantity, i.LineTotal())
+		s += fmt.Sprintf("%s%s x%d ₩%d\n", cursor, i.Name, i.Quantity, int(i.LineTotal()))
 	}
-	s += fmt.Sprintf("\nTotal: $%.2f\n\nUp/Down=select  -=decrease  Backspace=remove  Enter=checkout  a=shop", c.Total())
+	s += fmt.Sprintf("\nTotal: ₩%d\n\nUp/Down=select  -=decrease  Backspace=remove  Enter=checkout  a=shop", int(c.Total()))
 	return s
 }

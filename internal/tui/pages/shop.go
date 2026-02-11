@@ -34,7 +34,7 @@ func Shop(products []model.Product, scrollOffset, cursor, width, addQuantity int
 			b.WriteString(shopAttrStyle.Render(strings.Join(p.Attributes, " | ")))
 			b.WriteString("\n")
 		}
-		b.WriteString(shopPriceStyle.Render(fmt.Sprintf("$%.2f", p.Price)))
+		b.WriteString(shopPriceStyle.Render(fmt.Sprintf("₩%d", int(p.Price))))
 		b.WriteString("\n")
 		b.WriteString(shopDescStyle.Render(p.Description))
 		b.WriteString("\n")
