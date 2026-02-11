@@ -1,4 +1,4 @@
-.PHONY: format build test pre-commit-install
+.PHONY: format build test run pre-commit-install
 
 format:
 	gofmt -s -w .
@@ -9,6 +9,9 @@ build:
 
 test:
 	go test ./...
+
+run:
+	go run ./cmd/mushroom
 
 pre-commit-install:
 	@which pre-commit >/dev/null 2>&1 && pre-commit install || echo "pre-commit not installed; run: pip install pre-commit"
