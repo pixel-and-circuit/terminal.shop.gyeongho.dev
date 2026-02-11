@@ -9,34 +9,58 @@ import (
 // MockClient is an in-memory client for tests and development (no server).
 type MockClient struct{}
 
-// GetProducts returns static mushroom products.
+// GetProducts returns static mushroom products (Mushroom Department Store lineup).
 func (MockClient) GetProducts(ctx context.Context) ([]model.Product, error) {
 	return []model.Product{
 		{
 			ID:          "1",
-			Name:        "Shiitake",
-			Attributes:  []string{"fresh", "organic"},
-			Price:       12.50,
-			Description: "Rich, savory shiitake mushrooms.",
+			Name:        "Oyster Mushroom",
+			Attributes:  []string{"fresh"},
+			Price:       800,
+			Description: "Oyster mushroom (Neutari), per 100g.",
 			Quantity:    100,
 		},
 		{
 			ID:          "2",
-			Name:        "Oyster",
-			Attributes:  []string{"whole", "dried"},
-			Price:       8.00,
-			Description: "Mild oyster mushrooms, great for cooking.",
-			Quantity:    50,
+			Name:        "Enoki Mushroom",
+			Attributes:  []string{"fresh"},
+			Price:       350,
+			Description: "Enoki mushroom (Paeng-i), per 100g.",
+			Quantity:    100,
+		},
+		{
+			ID:          "3",
+			Name:        "Button Mushroom",
+			Attributes:  []string{"fresh"},
+			Price:       2000,
+			Description: "Button mushroom (Yang song-i), per 100g.",
+			Quantity:    100,
+		},
+		{
+			ID:          "4",
+			Name:        "King Oyster Mushroom",
+			Attributes:  []string{"fresh"},
+			Price:       300,
+			Description: "King oyster mushroom (Sae song-i), per 100g.",
+			Quantity:    100,
+		},
+		{
+			ID:          "5",
+			Name:        "Shiitake Mushroom",
+			Attributes:  []string{"fresh"},
+			Price:       700,
+			Description: "Shiitake mushroom (Pyogo), per 100g.",
+			Quantity:    100,
 		},
 	}, nil
 }
 
-// GetAbout returns static store info.
+// GetAbout returns static store info (Mushroom Department Store).
 func (MockClient) GetAbout(ctx context.Context) (model.StoreInfo, error) {
 	return model.StoreInfo{
 		ID:    "about",
-		Title: "About the store",
-		Body:  "Welcome to the mushroom farm. We sell fresh and dried mushrooms. SSH store at mushroom.gyeongho.dev.",
+		Title: "Mushroom Department Store",
+		Body:  "Welcome to Mushroom Department Store (Buseot Baekhwajeom). We sell fresh mushrooms by weight. SSH store at mushroom.gyeongho.dev.",
 	}, nil
 }
 
