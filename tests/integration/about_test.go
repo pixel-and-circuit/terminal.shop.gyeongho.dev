@@ -23,7 +23,8 @@ func TestPressSShowsAboutContent(t *testing.T) {
 		t.Fatalf("expected PageAbout after s, got %v", mod.CurrentPage)
 	}
 	view := mod.View()
-	if !strings.Contains(view, "About") || !strings.Contains(view, "store") {
+	viewLower := strings.ToLower(view)
+	if !strings.Contains(viewLower, "about") || !strings.Contains(viewLower, "store") {
 		t.Errorf("about view should show store info, got:\n%s", view)
 	}
 }

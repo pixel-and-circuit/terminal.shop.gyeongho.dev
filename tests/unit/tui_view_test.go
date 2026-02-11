@@ -55,8 +55,8 @@ func TestViewWhenLoadingFalse_ShowsCenteredMainViewWithHeaderAndFooter(t *testin
 	if view == "" {
 		t.Error("View when Loading is false should not be empty")
 	}
-	if !strings.Contains(strings.ToLower(view), "mushroom") {
-		t.Errorf("View when Loading is false should contain header (mushroom), got:\n%s", view)
+	if !strings.Contains(strings.ToLower(view), "terminal") {
+		t.Errorf("View when Loading is false should contain header (terminal), got:\n%s", view)
 	}
 	if !strings.Contains(view, "quit") {
 		t.Errorf("View when Loading is false should contain footer (quit), got:\n%s", view)
@@ -109,12 +109,12 @@ func assertViewFitsHeightAndMenuVisible(t *testing.T, view string, maxLines int,
 			scenario, maxLines, lineCount)
 	}
 	viewLower := strings.ToLower(view)
-	if !strings.Contains(viewLower, "mushroom") || !strings.Contains(viewLower, "shop") {
+	if !strings.Contains(viewLower, "terminal") || !strings.Contains(viewLower, "shop") {
 		t.Errorf("%s: View() must contain menu (header)", scenario)
 	}
 	foundInVisible := false
 	for i := 0; i < lineCount && i < 5; i++ {
-		if strings.Contains(strings.ToLower(lines[i]), "mushroom") || strings.Contains(strings.ToLower(lines[i]), "shop") {
+		if strings.Contains(strings.ToLower(lines[i]), "terminal") || strings.Contains(strings.ToLower(lines[i]), "shop") {
 			foundInVisible = true
 			break
 		}
@@ -145,7 +145,7 @@ func TestViewAfterWindowSizeMsg_UsesNewDimensions(t *testing.T) {
 	if viewLarge == "" {
 		t.Error("View after resize should not be empty")
 	}
-	if !strings.Contains(viewLarge, "mushroom") {
+	if !strings.Contains(viewLarge, "terminal") {
 		t.Error("View after resize should still contain header content")
 	}
 }
