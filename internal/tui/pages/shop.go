@@ -17,8 +17,8 @@ var (
 	shopQuantityStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("#FFFFFF"))
 )
 
-// Shop renders the shop page: product name, attributes, price, description, and quantity per item.
-func Shop(products []model.Product, scrollOffset, cursor, width int) string {
+// Shop renders the shop page: product name, attributes, price, description, quantity per item, and add qty.
+func Shop(products []model.Product, scrollOffset, cursor, width, addQuantity int) string {
 	if len(products) == 0 {
 		return "No products. Press a/s/d to navigate."
 	}
@@ -45,6 +45,6 @@ func Shop(products []model.Product, scrollOffset, cursor, width int) string {
 		b.WriteString(shopQuantityStyle.Render(qty))
 		b.WriteString("\n\n")
 	}
-	b.WriteString("Enter=add to cart  c=cart  a/s/d=nav")
+	b.WriteString(fmt.Sprintf("+/- qty: %d  Enter=add to cart  c=cart  a/s/d=nav", addQuantity))
 	return b.String()
 }
