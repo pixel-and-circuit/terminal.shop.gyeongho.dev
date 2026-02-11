@@ -38,3 +38,50 @@ func (c Cart) ItemCount() int {
 	}
 	return n
 }
+
+// RemoveItem removes the item at index i. Does nothing if i is out of range.
+func (c *Cart) RemoveItem(i int) {
+	if i < 0 || i >= len(c.Items) {
+		return
+	}
+	c.Items = append(c.Items[:i], c.Items[i+1:]...)
+}
+
+// DecreaseQuantity decreases the quantity of the item at index i by 1. If quantity was 1, the item is removed and true is returned; otherwise false. Returns false if i is out of range.
+func (c *Cart) DecreaseQuantity(i int) (removed bool) {
+	if i < 0 || i >= len(c.Items) {
+		return false
+	}
+	if c.Items[i].Quantity <= 1 {
+		c.RemoveItem(i)
+		return true
+	}
+	c.Items[i].Quantity--
+	return false
+}
+
+// AddOrMergeItem adds addQty to an existing line with the same productID, or appends a new line. Quantity is capped at maxStock.
+func (c *Cart) AddOrMergeItem(productID, name string, unitPrice float64, addQty, maxStock int) {
+	if addQty <= 0 {
+		return
+	}
+	for i := range c.Items {
+		if c.Items[i].ProductID == productID {
+			c.Items[i].Quantity += addQty
+			if c.Items[i].Quantity > maxStock {
+				c.Items[i].Quantity = maxStock
+			}
+			return
+		}
+	}
+	qty := addQty
+	if qty > maxStock {
+		qty = maxStock
+	}
+	c.Items = append(c.Items, CartItem{
+		ProductID: productID,
+		Name:      name,
+		UnitPrice: unitPrice,
+		Quantity:  qty,
+	})
+}
