@@ -34,6 +34,7 @@ func (MockClient) GetProducts(ctx context.Context) ([]model.Product, error) {
 // GetAbout returns static store info.
 func (MockClient) GetAbout(ctx context.Context) (model.StoreInfo, error) {
 	return model.StoreInfo{
+		ID:    "about",
 		Title: "About the store",
 		Body:  "Welcome to the mushroom farm. We sell fresh and dried mushrooms. SSH store at mushroom.gyeongho.dev.",
 	}, nil
@@ -42,8 +43,8 @@ func (MockClient) GetAbout(ctx context.Context) (model.StoreInfo, error) {
 // GetFAQ returns static FAQ entries.
 func (MockClient) GetFAQ(ctx context.Context) ([]model.FAQEntry, error) {
 	return []model.FAQEntry{
-		{Question: "How do I order?", Answer: "Use key (a) for Shop, add to cart, then (c) for cart and checkout."},
-		{Question: "What payment do you accept?", Answer: "Payment options are configured at checkout."},
+		{ID: "faq-1", Question: "How do I order?", Answer: "Use key (a) for Shop, add to cart, then (c) for cart and checkout."},
+		{ID: "faq-2", Question: "What payment do you accept?", Answer: "Payment options are configured at checkout."},
 	}, nil
 }
 

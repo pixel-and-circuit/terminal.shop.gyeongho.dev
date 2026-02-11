@@ -100,10 +100,10 @@ components:
       properties:
         id: { type: string }
         name: { type: string }
-        attributes: { type: array; items: { type: string } }
-        price: { type: number; format: double }
+        attributes: { type: array, items: { type: string } }
+        price: { type: number, format: double }
         description: { type: string }
-        quantity: { type: integer; minimum: 0 }
+        quantity: { type: integer, minimum: 0 }
     CartItem:
       type: object
       required: [productId, name, unitPrice, quantity]
@@ -111,26 +111,28 @@ components:
         productId: { type: string }
         name: { type: string }
         unitPrice: { type: number }
-        quantity: { type: integer; minimum: 1 }
+        quantity: { type: integer, minimum: 1 }
     AddCartItem:
       type: object
       required: [productId, quantity]
       properties:
         productId: { type: string }
-        quantity: { type: integer; minimum: 1 }
+        quantity: { type: integer, minimum: 1 }
     Cart:
       type: object
       properties:
-        items: { type: array; items: { $ref: '#/components/schemas/CartItem' } }
+        items: { type: array, items: { $ref: '#/components/schemas/CartItem' } }
     StoreInfo:
       type: object
       properties:
+        id: { type: string }
         title: { type: string }
         body: { type: string }
     FAQEntry:
       type: object
       required: [question, answer]
       properties:
+        id: { type: string }
         question: { type: string }
         answer: { type: string }
     Order:
@@ -138,7 +140,7 @@ components:
       required: [id, status]
       properties:
         id: { type: string }
-        items: { type: array; items: { $ref: '#/components/schemas/CartItem' } }
+        items: { type: array, items: { $ref: '#/components/schemas/CartItem' } }
         total: { type: number }
         status: { type: string }
-        createdAt: { type: string; format: date-time }
+        createdAt: { type: string, format: date-time }
