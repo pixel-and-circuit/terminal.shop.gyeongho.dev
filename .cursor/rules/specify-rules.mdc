@@ -1,35 +1,53 @@
 # shop.gyeongho.dev Development Guidelines
 
-Auto-generated from all feature plans. Last updated: 2026-02-11
+Auto-generated from feature plans. Last updated: 2025-02-14
 
 ## Active Technologies
-- Go 1.21+ (existing) + Charm Bubble Tea, Lip Gloss (existing); use `lipgloss.Place` (or equivalent) for centering content in viewport. (001-responsive-terminal-layout)
-- N/A (layout only). (001-responsive-terminal-layout)
-- Go 1.21+ (go.mod: 1.25.7) + Charm Bubble Tea, Lip Gloss, Bubbles (003-rebrand-to-shop)
-- N/A (API client; mock and HTTP) (003-rebrand-to-shop)
 
-- Go 1.21+ (or latest stable) + Charm Bubble Tea (TUI), Lip Gloss (styling), Bubbles (components). HTTP client abstracted via interface (e.g. `internal/apiclient.Client`). (001-ssh-shop-tui)
+- **Go** 1.21+ (single module at repo root; go.mod may specify 1.25.x)
+- **Charm**: Bubble Tea (TUI), Lip Gloss (styling), Bubbles (components)
+- **Charm Wish** (004-ssh-shop-access): SSH server; middlewares bubbletea, activeterm, logging; testsession for tests
+- **API**: `internal/apiclient.Client` interface; mock and HTTP implementations
+- **Storage**: N/A (TUI state in-memory per session; API client calls backend)
 
 ## Project Structure
 
 ```text
-src/
-tests/
+cmd/shop/               # TUI + SSH server entrypoint (main.go)
+internal/
+  model/                # Domain: Product, Cart, Order, StoreInfo, FAQEntry
+  apiclient/            # client.go (interface), mock.go, http.go
+  tui/                  # app.go, header.go, footer.go, keys.go, loader.go, pages/
+tests/unit/             # Unit tests (model, TUI)
+tests/integration/      # Integration tests (flows with mock client)
+tests/ssh/              # Wish testsession tests (004-ssh-shop-access)
+specs/                  # Feature specs (e.g. 001-ssh-shop-tui, 002-responsive-terminal-layout, 003-rebrand-to-shop, 004-ssh-shop-access)
 ```
 
 ## Commands
 
-# Add commands for Go 1.21+ (or latest stable)
+| Command | Description |
+|--------|-------------|
+| `make format` | Format Go code (gofmt, goimports). **Run after code changes.** |
+| `make build` | Build binary to `bin/shop`. **Must pass before task complete.** |
+| `make test` | Run all tests (`go test ./...`) |
+| `make pre-commit-install` | Install pre-commit hooks |
+| `./bin/shop` | Run TUI locally |
+| `./bin/shop --ssh` | Run SSH server (when implemented; port/host key per plan) |
+| `go run ./cmd/shop` | Run TUI without building |
 
 ## Code Style
 
-Go 1.21+ (or latest stable): Follow standard conventions
+- **Go**: Standard conventions; gofmt; exported names PascalCase, unexported camelCase.
+- **Design**: Model-first (pure structs/interfaces in internal/model); API behind `apiclient.Client`; TUI state in `internal/tui` (Bubble Tea). SSH entrypoint uses Wish; no new domain entities for SSH (004-ssh-shop-access).
+- **Quality gate**: After any code modification, run `make format` and `make build` (see [.specify/memory/constitution.md](.specify/memory/constitution.md)).
 
 ## Recent Changes
-- 003-rebrand-to-shop: Added Go 1.21+ (go.mod: 1.25.7) + Charm Bubble Tea, Lip Gloss, Bubbles
-- 001-responsive-terminal-layout: Added Go 1.21+ (existing) + Charm Bubble Tea, Lip Gloss (existing); use `lipgloss.Place` (or equivalent) for centering content in viewport.
 
-- 001-ssh-shop-tui: Added Go 1.21+ (or latest stable) + Charm Bubble Tea (TUI), Lip Gloss (styling), Bubbles (components). HTTP client abstracted via interface (e.g. `internal/apiclient.Client`).
+- **004-ssh-shop-access**: SSH access via Charm Wish; testsession for SSH tests; one TUI per session.
+- **003-rebrand-to-shop**: Rebrand to shop.gyeongho.dev; API client default base URL.
+- **002-responsive-terminal-layout**: Centered layout; lipgloss.Place for viewport centering; loading screen.
+- **001-ssh-shop-tui**: Full TUI implementation — navigation (a/s/d/c), Shop, About, FAQ, Cart, mock API client, Makefile, pre-commit, CI.
 
 <!-- MANUAL ADDITIONS START -->
 <!-- MANUAL ADDITIONS END -->
