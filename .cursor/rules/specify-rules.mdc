@@ -5,6 +5,8 @@ Auto-generated from all feature plans. Last updated: 2026-02-11
 ## Active Technologies
 - Go 1.21+ (existing) + Charm Bubble Tea, Lip Gloss (existing); use `lipgloss.Place` (or equivalent) for centering content in viewport. (001-responsive-terminal-layout)
 - N/A (layout only). (001-responsive-terminal-layout)
+- Go 1.21+ (go.mod: 1.25.7) + Charm Bubble Tea, Lip Gloss, Bubbles (003-mushroom-to-shop)
+- N/A (API client; mock and HTTP) (003-mushroom-to-shop)
 
 - Go 1.21+ (or latest stable) + Charm Bubble Tea (TUI), Lip Gloss (styling), Bubbles (components). HTTP client abstracted via interface (e.g. `internal/apiclient.Client`). (001-ssh-mushroom-tui)
 
@@ -24,6 +26,7 @@ tests/
 Go 1.21+ (or latest stable): Follow standard conventions
 
 ## Recent Changes
+- 003-mushroom-to-shop: Added Go 1.21+ (go.mod: 1.25.7) + Charm Bubble Tea, Lip Gloss, Bubbles
 - 001-responsive-terminal-layout: Added Go 1.21+ (existing) + Charm Bubble Tea, Lip Gloss (existing); use `lipgloss.Place` (or equivalent) for centering content in viewport.
 
 - 001-ssh-mushroom-tui: Added Go 1.21+ (or latest stable) + Charm Bubble Tea (TUI), Lip Gloss (styling), Bubbles (components). HTTP client abstracted via interface (e.g. `internal/apiclient.Client`).

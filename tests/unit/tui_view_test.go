@@ -4,8 +4,8 @@ import (
 	"strings"
 	"testing"
 
-	"mushroom.gyeongho.dev/internal/apiclient"
-	"mushroom.gyeongho.dev/internal/tui"
+	"shop.gyeongho.dev/internal/apiclient"
+	"shop.gyeongho.dev/internal/tui"
 
 	tea "github.com/charmbracelet/bubbletea"
 )
@@ -36,7 +36,7 @@ func TestViewWhenLoadingTrue_ShowsCenteredLoaderWithInnerText(t *testing.T) {
 	if view == "" {
 		t.Error("View when Loading is true should not be empty")
 	}
-	if !strings.Contains(view, "Loading mushroom.gyeongho.dev") {
+	if !strings.Contains(view, "Loading shop.gyeongho.dev") {
 		t.Errorf("View when Loading is true should contain loader inner text, got:\n%s", view)
 	}
 	// Centered output has multiple lines (viewport height)

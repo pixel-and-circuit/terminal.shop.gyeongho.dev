@@ -8,9 +8,9 @@ import (
 	"runtime"
 	"testing"
 
-	"mushroom.gyeongho.dev/internal/apiclient"
-	"mushroom.gyeongho.dev/internal/model"
-	"mushroom.gyeongho.dev/internal/testserver"
+	"shop.gyeongho.dev/internal/apiclient"
+	"shop.gyeongho.dev/internal/model"
+	"shop.gyeongho.dev/internal/testserver"
 )
 
 func fixtureDir(t *testing.T) string {

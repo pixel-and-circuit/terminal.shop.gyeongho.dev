@@ -2,7 +2,7 @@ package pages
 
 import (
 	"fmt"
-	"mushroom.gyeongho.dev/internal/model"
+	"shop.gyeongho.dev/internal/model"
 )
 
 // FAQ renders the full FAQ page. Scrolling is handled by the app viewport.

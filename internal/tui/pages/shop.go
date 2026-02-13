@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"mushroom.gyeongho.dev/internal/model"
+	"shop.gyeongho.dev/internal/model"
 
 	"github.com/charmbracelet/lipgloss"
 )
