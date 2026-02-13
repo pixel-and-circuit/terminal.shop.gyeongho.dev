@@ -4,9 +4,9 @@ import (
 	"strings"
 	"time"
 
-	"mushroom.gyeongho.dev/internal/apiclient"
-	"mushroom.gyeongho.dev/internal/model"
-	"mushroom.gyeongho.dev/internal/tui/pages"
+	"shop.gyeongho.dev/internal/apiclient"
+	"shop.gyeongho.dev/internal/model"
+	"shop.gyeongho.dev/internal/tui/pages"
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"

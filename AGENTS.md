@@ -1,10 +1,10 @@
-# mushroom.gyeongho.dev — Agent Guidelines
+# shop.gyeongho.dev — Agent Guidelines
 
 Auto-generated and maintained for AI agents (AMP, Q, Bob, and others). Last updated: 2025-02-11
 
 ## Project purpose
 
-SSH-accessible TUI for mushroom sales at mushroom.gyeongho.dev. Terminal.shop-style UX: Shop (a), About (s), FAQ (d), Cart (c), scroll, product list, checkout. Go + Charm Bubble Tea; API client abstracted for mocking.
+SSH-accessible TUI for shop at shop.gyeongho.dev. Sells all products gyeongho provides: mushrooms, embedded devices, robots, and more. Terminal.shop-style UX: Shop (a), About (s), FAQ (d), Cart (c), scroll, product list, checkout. Go + Charm Bubble Tea; API client abstracted for mocking.
 
 ## Active technologies
 
@@ -16,7 +16,7 @@ SSH-accessible TUI for mushroom sales at mushroom.gyeongho.dev. Terminal.shop-st
 ## Project structure
 
 ```text
-cmd/mushroom/           # TUI entrypoint (main.go)
+cmd/shop/               # TUI entrypoint (main.go)
 internal/
   model/               # Domain: Product, Cart, Order, StoreInfo, FAQEntry
   apiclient/            # client.go (interface), mock.go, http.go
@@ -24,7 +24,7 @@ internal/
   tui/pages/            # landing, shop, about, faq, cart
 tests/unit/             # Unit tests (model, TUI)
 tests/integration/      # Integration tests (flows with mock client)
-specs/001-ssh-mushroom-tui/   # plan, spec, data-model, contracts, quickstart, tasks
+specs/003-mushroom-to-shop/   # rebrand spec, plan, tasks
 ```
 
 ## Commands
@@ -32,11 +32,11 @@ specs/001-ssh-mushroom-tui/   # plan, spec, data-model, contracts, quickstart, t
 | Command | Description |
 |--------|-------------|
 | `make format` | Format Go code (gofmt, goimports). **Run after code changes.** |
-| `make build` | Build binary to `bin/mushroom`. **Must pass before task complete.** |
+| `make build` | Build binary to `bin/shop`. **Must pass before task complete.** |
 | `make test` | Run all tests (`go test ./...`) |
 | `make pre-commit-install` | Install pre-commit hooks |
-| `./bin/mushroom` | Run TUI (after build) |
-| `go run ./cmd/mushroom` | Run TUI without building |
+| `./bin/shop` | Run TUI (after build) |
+| `go run ./cmd/shop` | Run TUI without building |
 
 ## Code style
 

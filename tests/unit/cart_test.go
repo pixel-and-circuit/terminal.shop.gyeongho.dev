@@ -3,7 +3,7 @@ package unit
 import (
 	"testing"
 
-	"mushroom.gyeongho.dev/internal/model"
+	"shop.gyeongho.dev/internal/model"
 )
 
 func TestCartTotalAndItemCount(t *testing.T) {

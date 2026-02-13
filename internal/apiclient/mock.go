@@ -3,13 +3,13 @@ package apiclient
 import (
 	"context"
 
-	"mushroom.gyeongho.dev/internal/model"
+	"shop.gyeongho.dev/internal/model"
 )
 
 // MockClient is an in-memory client for tests and development (no server).
 type MockClient struct{}
 
-// GetProducts returns static mushroom products (Mushroom Department Store lineup).
+// GetProducts returns static products (shop catalog lineup).
 func (MockClient) GetProducts(ctx context.Context) ([]model.Product, error) {
 	return []model.Product{
 		{
@@ -55,12 +55,12 @@ func (MockClient) GetProducts(ctx context.Context) ([]model.Product, error) {
 	}, nil
 }
 
-// GetAbout returns static store info (Mushroom Department Store).
+// GetAbout returns static store info (shop branding).
 func (MockClient) GetAbout(ctx context.Context) (model.StoreInfo, error) {
 	return model.StoreInfo{
 		ID:    "about",
-		Title: "Mushroom Department Store",
-		Body:  "Welcome to Mushroom Department Store (Buseot Baekhwajeom). We sell fresh mushrooms by weight. SSH store at mushroom.gyeongho.dev.",
+		Title: "shop.gyeongho.dev",
+		Body:  "Welcome to shop.gyeongho.dev. We sell all products gyeongho provides: mushrooms, embedded devices, robots, and more. SSH store at shop.gyeongho.dev.",
 	}, nil
 }
 
@@ -69,6 +69,7 @@ func (MockClient) GetFAQ(ctx context.Context) ([]model.FAQEntry, error) {
 	return []model.FAQEntry{
 		{ID: "faq-1", Question: "How do I order?", Answer: "Use key (a) for Shop, add to cart, then (c) for cart and checkout."},
 		{ID: "faq-2", Question: "What payment do you accept?", Answer: "Payment options are configured at checkout."},
+		{ID: "faq-3", Question: "What do you sell?", Answer: "We sell all products gyeongho provides: mushrooms, embedded devices, robots, and more."},
 	}, nil
 }
 

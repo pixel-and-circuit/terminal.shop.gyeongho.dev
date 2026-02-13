@@ -1,6 +1,6 @@
 package model
 
-// Product represents a sellable mushroom product.
+// Product represents a sellable product.
 type Product struct {
 	ID          string   `json:"id"`
 	Name        string   `json:"name"`

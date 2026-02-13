@@ -12,7 +12,7 @@ const (
 	loaderBoxHeight   = 20
 	loaderInnerWidth  = 40
 	loaderInnerHeight = 5
-	loaderInnerText   = "Loading mushroom.gyeongho.dev"
+	loaderInnerText   = "Loading shop.gyeongho.dev"
 	loaderInnerPad    = 6
 )
 

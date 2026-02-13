@@ -1,6 +1,6 @@
 package pages
 
-import "mushroom.gyeongho.dev/internal/model"
+import "shop.gyeongho.dev/internal/model"
 
 // About renders the store about page.
 func About(info model.StoreInfo) string {

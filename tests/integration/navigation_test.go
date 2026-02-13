@@ -3,8 +3,8 @@ package integration
 import (
 	"testing"
 
-	"mushroom.gyeongho.dev/internal/apiclient"
-	"mushroom.gyeongho.dev/internal/tui"
+	"shop.gyeongho.dev/internal/apiclient"
+	"shop.gyeongho.dev/internal/tui"
 
 	tea "github.com/charmbracelet/bubbletea"
 )

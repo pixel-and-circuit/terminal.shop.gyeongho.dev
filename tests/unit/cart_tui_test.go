@@ -4,10 +4,10 @@ import (
 	"strings"
 	"testing"
 
-	"mushroom.gyeongho.dev/internal/apiclient"
-	"mushroom.gyeongho.dev/internal/model"
-	"mushroom.gyeongho.dev/internal/tui"
-	"mushroom.gyeongho.dev/internal/tui/pages"
+	"shop.gyeongho.dev/internal/apiclient"
+	"shop.gyeongho.dev/internal/model"
+	"shop.gyeongho.dev/internal/tui"
+	"shop.gyeongho.dev/internal/tui/pages"
 
 	tea "github.com/charmbracelet/bubbletea"
 )

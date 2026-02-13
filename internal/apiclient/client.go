@@ -3,7 +3,7 @@ package apiclient
 import (
 	"context"
 
-	"mushroom.gyeongho.dev/internal/model"
+	"shop.gyeongho.dev/internal/model"
 )
 
 // Client is the abstract API client for products, about, faq, cart, and orders.

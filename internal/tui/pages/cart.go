@@ -2,7 +2,7 @@ package pages
 
 import (
 	"fmt"
-	"mushroom.gyeongho.dev/internal/model"
+	"shop.gyeongho.dev/internal/model"
 )
 
 // Cart renders the cart page: items (with cursor on selectedIndex), total, and hints.

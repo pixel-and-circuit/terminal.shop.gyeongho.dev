@@ -4,8 +4,8 @@ import (
 	"strings"
 	"testing"
 
-	"mushroom.gyeongho.dev/internal/model"
-	"mushroom.gyeongho.dev/internal/tui/pages"
+	"shop.gyeongho.dev/internal/model"
+	"shop.gyeongho.dev/internal/tui/pages"
 )
 
 func TestAboutViewShowsStoreInfo(t *testing.T) {
