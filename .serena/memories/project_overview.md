@@ -1,12 +1,12 @@
-# Project overview: mushroom.gyeongho.dev
+# Project overview: shop.gyeongho.dev
 
 ## Purpose
-SSH-accessible TUI for mushroom sales at mushroom.gyeongho.dev. Replicates terminal.shop-style UX: main navigation (Shop a, About s, FAQ d), scroll, product list, cart, checkout. Nostalgic terminal-based shopping for a mushroom farm.
+SSH-accessible TUI for shop at shop.gyeongho.dev. Sells all products gyeongho provides: mushrooms, embedded devices, robots, and more. Replicates terminal.shop-style UX: main navigation (Shop a, About s, FAQ d), scroll, product list, cart, checkout.
 
 ## Tech stack
 - **Language**: Go 1.21+
 - **TUI**: Charm Bubble Tea, Lip Gloss, Bubbles
-- **API**: HTTP client abstracted (internal/apiclient); mock for tests; optional real client for mushroom.gyeongho.dev/api
+- **API**: HTTP client abstracted (internal/apiclient); mock for tests; optional real client for shop.gyeongho.dev/api
 - **Tooling**: Makefile (format, build, test), pre-commit, GitHub Actions CI
 
 ## Design

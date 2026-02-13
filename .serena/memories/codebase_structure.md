@@ -1,7 +1,7 @@
-# Codebase structure (mushroom.gyeongho.dev)
+# Codebase structure (shop.gyeongho.dev)
 
 ```
-cmd/mushroom/           # Main entry (TUI binary)
+cmd/shop/               # Main entry (TUI binary)
 internal/
   model/                # Domain: product.go, cart.go, order.go, storeinfo.go, faq.go
   apiclient/            # client.go (interface), mock.go, http.go
@@ -11,6 +11,7 @@ tests/
   unit/                 # *_test.go for model and TUI logic
   integration/          # navigation, shop, about, faq tests
 specs/001-ssh-mushroom-tui/  # plan, spec, data-model, contracts, quickstart, tasks
+specs/003-mushroom-to-shop/  # rebrand spec, plan, tasks
 ```
 
-Entrypoint: cmd/mushroom/main.go. Domain and API client are in internal/; tests in tests/.
+Entrypoint: cmd/shop/main.go. Domain and API client are in internal/; tests in tests/.

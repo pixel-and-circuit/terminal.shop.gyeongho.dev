@@ -1,4 +1,4 @@
-# Task completion checklist (mushroom.gyeongho.dev)
+# Task completion checklist (shop.gyeongho.dev)
 
 When a code task is completed:
 
