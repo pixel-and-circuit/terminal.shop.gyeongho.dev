@@ -1,6 +1,6 @@
-# Quickstart: SSH-Based Mushroom Sales TUI
+# Quickstart: SSH-Based Shop TUI
 
-**Feature**: 001-ssh-mushroom-tui  
+**Feature**: 001-ssh-shop-tui  
 **Spec**: [spec.md](./spec.md) | **Plan**: [plan.md](./plan.md)
 
 ## Prerequisites
@@ -14,7 +14,7 @@
 ## Repository Layout (after implementation)
 
 ```text
-cmd/mushroom/          # Main binary (TUI entry)
+cmd/shop/              # Main binary (TUI entry)
 internal/model/        # Domain structs
 internal/apiclient/    # HTTP client interface + real/mock
 internal/tui/          # Bubble Tea app, header, footer, pages
@@ -27,7 +27,7 @@ Makefile
 | Target | Description |
 |--------|-------------|
 | `make format` | Format Go code (gofmt/goimports). Run after code changes (constitution). |
-| `make build` | Build TUI binary (e.g. `bin/mushroom`). |
+| `make build` | Build TUI binary (e.g. `bin/shop`). |
 | `make test` | Run all tests. |
 | `make pre-commit-install` | Install pre-commit hooks (format + commitlint). |
 
@@ -37,13 +37,13 @@ Until SSH is configured, run the binary directly:
 
 ```bash
 make build
-./bin/mushroom
+./bin/shop
 ```
 
 Or:
 
 ```bash
-go run ./cmd/mushroom
+go run ./cmd/shop
 ```
 
 **Keys**: **a** Shop, **s** About, **d** FAQ; **c** Cart; **Up/Down** scroll; **q** or **Ctrl+C** quit. Footer: +/- qty, c cart, q quit (terminal.shop-style).
@@ -65,7 +65,7 @@ Unit tests cover model and TUI Update/View logic; integration tests use a mock A
 
 ## API Base URL
 
-Default: `https://mushroom.gyeongho.dev/api`. Override via env (e.g. `MUSHROOM_API_BASE`) for local or mock server. When the server is not running, the client uses mock data or an in-memory implementation for development and tests.
+Default: `https://shop.gyeongho.dev/api`. Override via env (e.g. `SHOP_API_BASE`) for local or mock server. When the server is not running, the client uses mock data or an in-memory implementation for development and tests.
 
 ## Reference
 

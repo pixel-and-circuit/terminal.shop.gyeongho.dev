@@ -15,7 +15,7 @@
 
 ## Path Conventions
 
-- Single Go module at repo root: `internal/tui/`, `cmd/mushroom/`, `tests/`
+- Single Go module at repo root: `internal/tui/`, `cmd/shop/`, `tests/`
 
 ---
 
@@ -23,7 +23,7 @@
 
 **Purpose**: Verify project and dependencies are ready for layout changes
 
-- [x] T001 Verify Go module and Charm Bubble Tea / Lip Gloss dependencies; confirm `internal/tui/` and `cmd/mushroom/` exist per plan in repo root
+- [x] T001 Verify Go module and Charm Bubble Tea / Lip Gloss dependencies; confirm `internal/tui/` and `cmd/shop/` exist per plan in repo root
 
 ---
 
@@ -34,7 +34,7 @@
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
 - [x] T002 Add `Loading` field to Model and handle load-complete message (e.g. `tea.Tick` then set `Loading = false`) in `internal/tui/app.go`
-- [x] T003 [P] Implement terminal.shop-style loading view: Base64-style random character rectangle (e.g. 40×20) with inner centered line (e.g. "Loading mushroom.gyeongho.dev") in `internal/tui/loader.go`
+- [x] T003 [P] Implement terminal.shop-style loading view: Base64-style random character rectangle (e.g. 40×20) with inner centered line (e.g. "Loading shop.gyeongho.dev") in `internal/tui/loader.go`
 - [x] T004 In `View()`, when `Loading` is true return output of loader centered with `lipgloss.Place(Width, Height, Center, Center, loadingView)` in `internal/tui/app.go`
 - [x] T005 In `View()`, when `Loading` is false build main view (header + body + footer) and return it centered with `lipgloss.Place(Width, Height, Center, Center, mainView)` in `internal/tui/app.go`
 - [x] T006 Apply max content width (e.g. 60) for main view body so the centered block does not over-stretch on very wide terminals in `internal/tui/app.go` and/or `internal/tui/pages/` as needed
@@ -179,5 +179,5 @@ T003: "Implement terminal.shop-style loading view in internal/tui/loader.go"
 - [Story] label links task to spec.md user stories for traceability
 - Each user story is independently completable and testable
 - **Quality gate**: Run `make format` and `make build` after code changes (constitution)
-- File paths are under repo root: `internal/tui/`, `cmd/mushroom/`, `tests/`
+- File paths are under repo root: `internal/tui/`, `cmd/shop/`, `tests/`
 - **SC-004 (90% test sessions)**: Validated via T014 quickstart validation plus manual or automated testing across a set of common sizes and terminals (see quickstart.md and common sizes/terminals matrix).

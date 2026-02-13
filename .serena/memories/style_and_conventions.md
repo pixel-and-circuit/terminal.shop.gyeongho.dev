@@ -1,4 +1,4 @@
-# Style and conventions (mushroom.gyeongho.dev)
+# Style and conventions (shop.gyeongho.dev)
 
 - **Language**: Go. Follow standard Go conventions (effective go, gofmt).
 - **Naming**: PascalCase for exported, camelCase for unexported; short names where clear.

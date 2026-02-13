@@ -35,7 +35,7 @@ Verify alignment with `.specify/memory/constitution.md`:
 
 - **Code Quality**: Approach supports formatting and style consistency.
 - **Testing Standards**: Testing strategy matches feature scope and standards.
-- **UX/UI Consistency**: User flows and UI choices fit project style (e.g. terminal UX for Mushroom).
+- **UX/UI Consistency**: User flows and UI choices fit project style (e.g. terminal UX for Shop).
 - **Model-First**: Design uses clear Go interfaces/structs reflecting domain objects.
 - **Quality Gates**: Plan assumes `make format` and `make build` run after code changes.
 

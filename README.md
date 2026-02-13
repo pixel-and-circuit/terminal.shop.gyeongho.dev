@@ -1,6 +1,6 @@
 # shop.gyeongho.dev
 
-> A terminal-based shop for all products gyeongho provides: mushrooms, embedded devices, robots, and more.
+> A terminal-based shop for all products gyeongho provides: games, embedded devices, devtools, and more.
 
 ## Quick start
 
@@ -12,12 +12,12 @@
 
 ## Commands (Makefile)
 
-| Target                    | Description                    |
-| ------------------------- | ------------------------------ |
-| `make format`             | Format Go code (gofmt)         |
-| `make build`              | Build binary to `bin/shop`     |
-| `make test`               | Run tests                      |
-| `make pre-commit-install` | Install pre-commit hooks       |
+| Target                    | Description                |
+| ------------------------- | -------------------------- |
+| `make format`             | Format Go code (gofmt)     |
+| `make build`              | Build binary to `bin/shop` |
+| `make test`               | Run tests                  |
+| `make pre-commit-install` | Install pre-commit hooks   |
 
 ## Project layout
 
@@ -32,4 +32,4 @@ tests/integration/   # Integration tests
 
 ## Inspiration
 
-Inspired by [terminal.shop](https://terminal.shop), this project brings the charm of retro terminal interfaces to gyeongho's shop. Buy mushrooms, devices, robots, and more from the terminal.
+Inspired by [terminal.shop](https://terminal.shop), this project brings the charm of retro terminal interfaces to gyeongho's shop. Buy games, devices, devtools, and more from the terminal.

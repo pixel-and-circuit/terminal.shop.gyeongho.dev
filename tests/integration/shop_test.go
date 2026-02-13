@@ -33,7 +33,7 @@ func TestOpenShopAddToCartOpenCart(t *testing.T) {
 		t.Errorf("expected PageCart after c, got %v", mod.CurrentPage)
 	}
 	view := mod.View()
-	if !strings.Contains(view, "Oyster Mushroom") || !strings.Contains(view, "800") {
+	if !strings.Contains(view, "Oyster") || !strings.Contains(view, "800") {
 		t.Errorf("cart view should show product and price, got:\n%s", view)
 	}
 }
@@ -97,7 +97,7 @@ func TestShopSameItemEnterMultipleTimesOneRowInCart(t *testing.T) {
 	if !strings.Contains(view, "x2") {
 		t.Errorf("cart view should show one row with x2, got:\n%s", view)
 	}
-	if !strings.Contains(view, "Oyster Mushroom") {
-		t.Errorf("cart view should show product name Oyster Mushroom, got:\n%s", view)
+	if !strings.Contains(view, "Oyster") {
+		t.Errorf("cart view should show product name Oyster, got:\n%s", view)
 	}
 }

@@ -119,7 +119,7 @@ func TestE2E_SubmitOrder(t *testing.T) {
 	}
 	if len(cart.Items) == 0 {
 		cart.Items = []model.CartItem{
-			{ProductID: "1", Name: "Oyster Mushroom", UnitPrice: 800, Quantity: 1},
+			{ProductID: "1", Name: "Oyster", UnitPrice: 800, Quantity: 1},
 		}
 	}
 	order, err := client.SubmitOrder(ctx, cart)

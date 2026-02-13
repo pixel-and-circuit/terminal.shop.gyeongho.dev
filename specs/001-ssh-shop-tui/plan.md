@@ -1,19 +1,19 @@
-# Implementation Plan: SSH-Based Mushroom Sales TUI
+# Implementation Plan: SSH-Based Shop TUI
 
-**Branch**: `001-ssh-mushroom-tui` | **Date**: 2025-02-11 | **Spec**: [spec.md](./spec.md)  
-**Input**: Feature specification from `/specs/001-ssh-mushroom-tui/spec.md`
+**Branch**: `001-ssh-shop-tui` | **Date**: 2025-02-11 | **Spec**: [spec.md](./spec.md)  
+**Input**: Feature specification from `/specs/001-ssh-shop-tui/spec.md`
 
 **Note**: This template is filled in by the `/speckit.plan` command.
 
 ## Summary
 
-Deliver an SSH-accessible TUI for mushroom sales at mushroom.gyeongho.dev that replicates the UI/UX of the terminal.shop clone ([IsaiahPapa/terminal.shop](https://github.com/IsaiahPapa/terminal.shop)): main navigation (Shop a, About s, FAQ d), scroll, product list, cart, and checkout. Implement in Go using the Charm (Bubble Tea) library. API base is mushroom.gyeongho.dev with paths under `/api`; the server is not yet built, so the HTTP client is abstracted behind interfaces for easy mocking in tests. Development follows TDD: user scenarios (menu navigation, scroll, add-to-cart) drive test cases first, then implementation. Project tooling: Makefile for format/build/test, pre-commit for format and commitlint, and GitHub Actions CI. README is updated to reflect the final project layout.
+Deliver an SSH-accessible TUI for shop at shop.gyeongho.dev that replicates the UI/UX of the terminal.shop clone ([IsaiahPapa/terminal.shop](https://github.com/IsaiahPapa/terminal.shop)): main navigation (Shop a, About s, FAQ d), scroll, product list, cart, and checkout. Implement in Go using the Charm (Bubble Tea) library. API base is shop.gyeongho.dev with paths under `/api`; the server is not yet built, so the HTTP client is abstracted behind interfaces for easy mocking in tests. Development follows TDD: user scenarios (menu navigation, scroll, add-to-cart) drive test cases first, then implementation. Project tooling: Makefile for format/build/test, pre-commit for format and commitlint, and GitHub Actions CI. README is updated to reflect the final project layout.
 
 ## Technical Context
 
 **Language/Version**: Go 1.21+ (or latest stable)  
 **Primary Dependencies**: Charm Bubble Tea (TUI), Lip Gloss (styling), Bubbles (components). HTTP client abstracted via interface (e.g. `internal/apiclient.Client`).  
-**Storage**: N/A for initial TUI; API client calls backend at mushroom.gyeongho.dev/api (mock in tests).  
+**Storage**: N/A for initial TUI; API client calls backend at shop.gyeongho.dev/api (mock in tests).  
 **Testing**: `go test`; unit tests for models and TUI Update/View logic; integration/contract tests with mocked HTTP client.  
 **Target Platform**: SSH session (Linux/macOS terminal); ANSI-compatible terminal.  
 **Project Type**: Single (one Go module at repo root).  
@@ -38,7 +38,7 @@ Verify alignment with `.specify/memory/constitution.md`:
 ### Documentation (this feature)
 
 ```text
-specs/001-ssh-mushroom-tui/
+specs/001-ssh-shop-tui/
 ├── plan.md              # This file
 ├── research.md          # Phase 0 output
 ├── data-model.md        # Phase 1 output
@@ -51,7 +51,7 @@ specs/001-ssh-mushroom-tui/
 
 ```text
 cmd/
-└── mushroom/            # Main entry (SSH TUI binary)
+└── shop/                # Main entry (SSH TUI binary)
 
 internal/
 ├── model/               # Domain: Product, Order, Cart, StoreInfo, FAQ
@@ -82,7 +82,7 @@ go.sum
 README.md
 ```
 
-**Structure Decision**: Single Go module. Domain lives in `internal/model`; API access behind `internal/apiclient` interface for testability. TUI in `internal/tui` mirrors terminal.shop clone layout (header, footer, pages). Binary is `cmd/mushroom` for SSH server to invoke.
+**Structure Decision**: Single Go module. Domain lives in `internal/model`; API access behind `internal/apiclient` interface for testability. TUI in `internal/tui` mirrors terminal.shop clone layout (header, footer, pages). Binary is `cmd/shop` for SSH server to invoke.
 
 ## Complexity Tracking
 

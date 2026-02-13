@@ -9,7 +9,7 @@ Templates: plan-template.md ✅ updated (Constitution Check aligned); spec-templ
 Follow-up TODOs: None. RATIFICATION_DATE set to first adoption date 2025-02-11.
 -->
 
-# Mushroom Constitution
+# Shop Constitution
 
 ## Core Principles
 
@@ -23,7 +23,7 @@ Testing standards MUST be followed for all behavior-affecting changes. Tests MUS
 
 ### III. User Experience & UI Style Consistency
 
-User-facing behavior and UI MUST align with a consistent experience and visual style. Decisions affecting UX or UI MUST preserve coherence across the product (e.g. terminal-based interaction patterns for Mushroom). Rationale: consistency builds trust and reduces user confusion.
+User-facing behavior and UI MUST align with a consistent experience and visual style. Decisions affecting UX or UI MUST preserve coherence across the product (e.g. terminal-based interaction patterns for Shop). Rationale: consistency builds trust and reduces user confusion.
 
 ### IV. Model-First Design
 
@@ -50,6 +50,6 @@ Principles above guide technical decisions and implementation choices:
 
 ## Governance
 
-This constitution supersedes ad-hoc practices for the Mushroom project. Amendments require: (1) documentation of the change, (2) version bump per semantic versioning below, (3) update of this file and (4) propagation to dependent templates (plan, spec, tasks, and any command or guidance docs). All PRs and reviews MUST verify compliance with these principles; complexity or principle deviations MUST be justified (e.g. in plan.md Complexity Tracking or in PR description). For runtime development guidance, use README.md and specs under `specs/`.
+This constitution supersedes ad-hoc practices for the Shop project. Amendments require: (1) documentation of the change, (2) version bump per semantic versioning below, (3) update of this file and (4) propagation to dependent templates (plan, spec, tasks, and any command or guidance docs). All PRs and reviews MUST verify compliance with these principles; complexity or principle deviations MUST be justified (e.g. in plan.md Complexity Tracking or in PR description). For runtime development guidance, use README.md and specs under `specs/`.
 
 **Version**: 1.0.0 | **Ratified**: 2025-02-11 | **Last Amended**: 2025-02-11

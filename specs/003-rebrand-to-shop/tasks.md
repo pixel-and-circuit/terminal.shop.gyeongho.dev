@@ -1,6 +1,6 @@
-# Tasks: Rebrand from Mushroom to Shop
+# Tasks: Rebrand to Shop
 
-**Input**: Design documents from `specs/003-mushroom-to-shop/`  
+**Input**: Design documents from `specs/003-rebrand-to-shop/`  
 **Prerequisites**: plan.md, spec.md, research.md, data-model.md, contracts/, quickstart.md
 
 **Tests**: This feature updates existing tests (import paths and assertions); no new test tasks. Spec does not request TDD or new tests.
@@ -23,9 +23,9 @@ Single Go module at repo root: `cmd/shop/`, `internal/`, `tests/` (see plan.md).
 
 **Purpose**: Prepare repository for module and path rename.
 
-- [x] T001 Verify feature branch and design docs: ensure on branch `003-mushroom-to-shop` and `specs/003-mushroom-to-shop/` contains plan.md, spec.md, research.md
-- [x] T002 Rename `cmd/mushroom` to `cmd/shop`: create `cmd/shop/`, move `cmd/mushroom/main.go` to `cmd/shop/main.go`, remove empty `cmd/mushroom/`
-- [x] T003 Update `go.mod`: change module line from `mushroom.gyeongho.dev` to `shop.gyeongho.dev`
+- [x] T001 Verify feature branch and design docs: ensure on branch `003-rebrand-to-shop` and `specs/003-rebrand-to-shop/` contains plan.md, spec.md, research.md
+- [x] T002 Rename `cmd/shop` to `cmd/shop`: create `cmd/shop/`, move `cmd/shop/main.go` to `cmd/shop/main.go`, remove empty `cmd/shop/`
+- [x] T003 Update `go.mod`: change module line from `shop.gyeongho.dev` to `shop.gyeongho.dev`
 
 ---
 
@@ -33,9 +33,9 @@ Single Go module at repo root: `cmd/shop/`, `internal/`, `tests/` (see plan.md).
 
 **Purpose**: Module and import path changes so the project builds with the new identity. No user story work can begin until this phase is complete.
 
-- [x] T004 [P] Update import paths in `cmd/shop/main.go` from `mushroom.gyeongho.dev` to `shop.gyeongho.dev`
-- [x] T005 [P] Update import paths in `internal/apiclient/client.go`, `internal/apiclient/mock.go`, `internal/apiclient/http.go` from `mushroom.gyeongho.dev` to `shop.gyeongho.dev`
-- [x] T006 [P] Update import paths in `internal/tui/app.go`, `internal/tui/loader.go`, and `internal/tui/pages/*.go` from `mushroom.gyeongho.dev` to `shop.gyeongho.dev`
+- [x] T004 [P] Update import paths in `cmd/shop/main.go` from `shop.gyeongho.dev` to `shop.gyeongho.dev`
+- [x] T005 [P] Update import paths in `internal/apiclient/client.go`, `internal/apiclient/mock.go`, `internal/apiclient/http.go` from `shop.gyeongho.dev` to `shop.gyeongho.dev`
+- [x] T006 [P] Update import paths in `internal/tui/app.go`, `internal/tui/loader.go`, and `internal/tui/pages/*.go` from `shop.gyeongho.dev` to `shop.gyeongho.dev`
 - [x] T007 Update `Makefile`: build target output `bin/shop` from `./cmd/shop`; run target `go run ./cmd/shop`
 - [x] T008 Run `make format` and `make build`; fix any remaining import or path errors until build passes
 
@@ -47,10 +47,10 @@ Single Go module at repo root: `cmd/shop/`, `internal/`, `tests/` (see plan.md).
 
 **Goal**: User sees shop branding when opening the app (loader and domain identity show shop.gyeongho.dev).
 
-**Independent Test**: Run `./bin/shop` and confirm loader shows "Loading shop.gyeongho.dev" and no "mushroom" as store name on first screen.
+**Independent Test**: Run `./bin/shop` and confirm loader shows "Loading shop.gyeongho.dev" and no previous store name as store name on first screen.
 
-- [x] T009 [US1] Change loader constant in `internal/tui/loader.go` from `"Loading mushroom.gyeongho.dev"` to `"Loading shop.gyeongho.dev"`
-- [x] T010 [US1] Change default base URL in `internal/apiclient/http.go` from `https://mushroom.gyeongho.dev/api` to `https://shop.gyeongho.dev/api`
+- [x] T009 [US1] Change loader constant in `internal/tui/loader.go` from `"Loading shop.gyeongho.dev"` to `"Loading shop.gyeongho.dev"`
+- [x] T010 [US1] Change default base URL in `internal/apiclient/http.go` from `https://shop.gyeongho.dev/api` to `https://shop.gyeongho.dev/api`
 
 **Checkpoint**: User Story 1 deliverable — loader and API default use shop.gyeongho.dev.
 
@@ -58,13 +58,13 @@ Single Go module at repo root: `cmd/shop/`, `internal/`, `tests/` (see plan.md).
 
 ## Phase 4: User Story 2 – Consistent shop naming across the experience (Priority: P2)
 
-**Goal**: No "mushroom" store name in about, copy, or comments; store referred to as shop / shop.gyeongho.dev everywhere.
+**Goal**: No previous store name in about, copy, or comments; store referred to as shop / shop.gyeongho.dev everywhere.
 
-**Independent Test**: Walk every screen (About, FAQ, Shop, Cart); verify store title and copy use "shop" or shop.gyeongho.dev, not "mushroom".
+**Independent Test**: Walk every screen (About, FAQ, Shop, Cart); verify store title and copy use "shop" or shop.gyeongho.dev, not the previous store name.
 
-- [x] T011 [US2] Replace About title and body in `internal/apiclient/mock.go` (GetAbout) with shop branding and shop.gyeongho.dev; body must state that the shop sells all products gyeongho provides (mushrooms, embedded devices, robots, etc.)
-- [x] T012 [US2] Update Product comment in `internal/model/product.go` from "sellable mushroom product" to "sellable product"
-- [x] T013 [US2] Update comments in `internal/apiclient/mock.go` (e.g. "Mushroom Department Store", "mushroom.gyeongho.dev") to shop/store wording and shop.gyeongho.dev
+- [x] T011 [US2] Replace About title and body in `internal/apiclient/mock.go` (GetAbout) with shop branding and shop.gyeongho.dev; body must state that the shop sells all products gyeongho provides (produce, embedded devices, robots, etc.)
+- [x] T012 [US2] Update Product comment in `internal/model/product.go` from "sellable product" to "sellable product"
+- [x] T013 [US2] Update comments in `internal/apiclient/mock.go` (e.g. previous store title and domain) to shop/store wording and shop.gyeongho.dev
 
 **Checkpoint**: User Story 2 deliverable — about and internal copy use shop identity.
 
@@ -72,12 +72,12 @@ Single Go module at repo root: `cmd/shop/`, `internal/`, `tests/` (see plan.md).
 
 ## Phase 5: User Story 3 – Correct product and store context in content (Priority: P3)
 
-**Goal**: About and store-level content describe the shop as selling a variety of products (mushrooms, embedded devices, robots, etc.).
+**Goal**: About and store-level content describe the shop as selling a variety of products (produce, embedded devices, robots, etc.).
 
-**Independent Test**: Read About and FAQ; confirm copy reflects multiple product types and does not imply mushrooms-only.
+**Independent Test**: Read About and FAQ; confirm copy reflects multiple product types and does not imply single-category only.
 
-- [x] T014 [US3] Update `tests/e2e/fixtures/about.json`: set title and body to shop branding and description that gyeongho sells all products (mushrooms, embedded devices, robots, etc.)
-- [x] T015 [US3] Review FAQ entries in `internal/apiclient/mock.go` (GetFAQ); if any copy implies mushrooms-only, add or adjust wording to reference multiple product types where appropriate
+- [x] T014 [US3] Update `tests/e2e/fixtures/about.json`: set title and body to shop branding and description that gyeongho sells all products (produce, embedded devices, robots, etc.)
+- [x] T015 [US3] Review FAQ entries in `internal/apiclient/mock.go` (GetFAQ); if any copy implies single-category only, add or adjust wording to reference multiple product types where appropriate
 
 **Checkpoint**: User Story 3 deliverable — store and fixture content reflect product diversity.
 
@@ -87,12 +87,12 @@ Single Go module at repo root: `cmd/shop/`, `internal/`, `tests/` (see plan.md).
 
 **Purpose**: Update tests, documentation, and run quality gate so the rebrand is complete and all checks pass.
 
-- [x] T016 [P] Update `tests/unit/tui_view_test.go`: import path to `shop.gyeongho.dev`; change loader assertion from "Loading mushroom.gyeongho.dev" to "Loading shop.gyeongho.dev"
-- [x] T017 [P] Update import paths in `tests/unit/shop_test.go`, `tests/unit/faq_test.go`, `tests/unit/cart_test.go`, `tests/unit/cart_tui_test.go`, `tests/unit/about_test.go`, `tests/unit/tui_navigation_test.go` from `mushroom.gyeongho.dev` to `shop.gyeongho.dev`; update any assertions on about title/body to expect shop branding
+- [x] T016 [P] Update `tests/unit/tui_view_test.go`: import path to `shop.gyeongho.dev`; change loader assertion from "Loading shop.gyeongho.dev" to "Loading shop.gyeongho.dev"
+- [x] T017 [P] Update import paths in `tests/unit/shop_test.go`, `tests/unit/faq_test.go`, `tests/unit/cart_test.go`, `tests/unit/cart_tui_test.go`, `tests/unit/about_test.go`, `tests/unit/tui_navigation_test.go` from `shop.gyeongho.dev` to `shop.gyeongho.dev`; update any assertions on about title/body to expect shop branding
 - [x] T018 [P] Update import paths in `tests/integration/shop_test.go`, `tests/integration/faq_test.go`, `tests/integration/cart_test.go`, `tests/integration/about_test.go`, `tests/integration/navigation_test.go` to `shop.gyeongho.dev`; update any assertions on about content or loader to shop branding
-- [x] T019 [P] Update import paths in `tests/e2e/e2e_test.go` from `mushroom.gyeongho.dev` to `shop.gyeongho.dev`
-- [x] T020 [P] Update `README.md`: title to shop.gyeongho.dev; tagline/description to state that gyeongho sells all products (mushrooms, embedded devices, robots, etc.); commands `./bin/shop` and `go run ./cmd/shop`; SSH example `shop.gyeongho.dev`
-- [x] T021 [P] Update `AGENTS.md`: project purpose to SSH-accessible TUI for shop at shop.gyeongho.dev and all products gyeongho provides; paths `cmd/shop`, `bin/shop`; reference specs/003-mushroom-to-shop where relevant
+- [x] T019 [P] Update import paths in `tests/e2e/e2e_test.go` from `shop.gyeongho.dev` to `shop.gyeongho.dev`
+- [x] T020 [P] Update `README.md`: title to shop.gyeongho.dev; tagline/description to state that gyeongho sells all products (produce, embedded devices, robots, etc.); commands `./bin/shop` and `go run ./cmd/shop`; SSH example `shop.gyeongho.dev`
+- [x] T021 [P] Update `AGENTS.md`: project purpose to SSH-accessible TUI for shop at shop.gyeongho.dev and all products gyeongho provides; paths `cmd/shop`, `bin/shop`; reference specs/003-rebrand-to-shop where relevant
 - [x] T022 Run `make format`, `make build`, and `make test`; fix any remaining failures until all pass
 
 ---
@@ -173,4 +173,4 @@ Task T010: "Change default base URL in internal/apiclient/http.go to https://sho
 - [USn] maps the task to the user story for traceability.
 - Each user story phase is independently testable per the spec’s Independent Test.
 - **Quality gate**: Run `make format` and `make build` after code changes (constitution); Phase 6 includes `make test`.
-- Product names in mock/fixtures (e.g. "Oyster Mushroom") may stay as catalog data; only store name, domain, and about/FAQ copy change to shop and all-products messaging.
+- Product names in mock/fixtures (e.g. catalog product names) may stay as catalog data; only store name, domain, and about/FAQ copy change to shop and all-products messaging.

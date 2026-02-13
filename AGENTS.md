@@ -4,7 +4,7 @@ Auto-generated and maintained for AI agents (AMP, Q, Bob, and others). Last upda
 
 ## Project purpose
 
-SSH-accessible TUI for shop at shop.gyeongho.dev. Sells all products gyeongho provides: mushrooms, embedded devices, robots, and more. Terminal.shop-style UX: Shop (a), About (s), FAQ (d), Cart (c), scroll, product list, checkout. Go + Charm Bubble Tea; API client abstracted for mocking.
+SSH-accessible TUI for shop at shop.gyeongho.dev. Sells all products gyeongho provides: produce, embedded devices, robots, and more. Terminal.shop-style UX: Shop (a), About (s), FAQ (d), Cart (c), scroll, product list, checkout. Go + Charm Bubble Tea; API client abstracted for mocking.
 
 ## Active technologies
 
@@ -24,7 +24,7 @@ internal/
   tui/pages/            # landing, shop, about, faq, cart
 tests/unit/             # Unit tests (model, TUI)
 tests/integration/      # Integration tests (flows with mock client)
-specs/003-mushroom-to-shop/   # rebrand spec, plan, tasks
+specs/003-rebrand-to-shop/   # rebrand spec, plan, tasks
 ```
 
 ## Commands
@@ -50,7 +50,7 @@ Project constitution: [.specify/memory/constitution.md](.specify/memory/constitu
 
 ## Recent changes
 
-- **001-ssh-mushroom-tui**: Full TUI implementation — navigation (a/s/d/c), Shop, About, FAQ, Cart, mock API client, HTTP client stub, Makefile, pre-commit, CI, README.
+- **001-ssh-shop-tui**: Full TUI implementation — navigation (a/s/d/c), Shop, About, FAQ, Cart, mock API client, HTTP client stub, Makefile, pre-commit, CI, README.
 
 <!-- MANUAL ADDITIONS START -->
 <!-- MANUAL ADDITIONS END -->

@@ -18,8 +18,8 @@ func TestShopViewShowsProductList(t *testing.T) {
 	if view == "" {
 		t.Fatal("Shop view should not be empty when products exist")
 	}
-	if !strings.Contains(view, "Oyster Mushroom") {
-		t.Errorf("Shop view should contain product name Oyster Mushroom, got:\n%s", view)
+	if !strings.Contains(view, "Oyster") {
+		t.Errorf("Shop view should contain product name Oyster, got:\n%s", view)
 	}
 }
 

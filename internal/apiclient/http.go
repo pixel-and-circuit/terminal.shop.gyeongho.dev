@@ -12,7 +12,7 @@ import (
 )
 
 // HTTPClient calls shop.gyeongho.dev/api (or base URL from env).
-// If UserID is set (or MUSHROOM_USER_ID env), it sends X-User-Id on every request for user-scoped data.
+// If UserID is set (or SHOP_USER_ID env), it sends X-User-Id on every request for user-scoped data.
 type HTTPClient struct {
 	BaseURL string
 	Client  *http.Client
@@ -21,15 +21,15 @@ type HTTPClient struct {
 }
 
 // NewHTTPClient returns a client for the given base URL (e.g. https://shop.gyeongho.dev/api).
-// UserID is set from MUSHROOM_USER_ID when empty so the gateway can inject identity via env.
+// UserID is set from SHOP_USER_ID when empty so the gateway can inject identity via env.
 func NewHTTPClient(baseURL string) *HTTPClient {
 	if baseURL == "" {
-		baseURL = os.Getenv("MUSHROOM_API_BASE")
+		baseURL = os.Getenv("SHOP_API_BASE")
 		if baseURL == "" {
 			baseURL = "https://shop.gyeongho.dev/api"
 		}
 	}
-	userID := os.Getenv("MUSHROOM_USER_ID")
+	userID := os.Getenv("SHOP_USER_ID")
 	return &HTTPClient{BaseURL: baseURL, Client: http.DefaultClient, UserID: userID}
 }
 

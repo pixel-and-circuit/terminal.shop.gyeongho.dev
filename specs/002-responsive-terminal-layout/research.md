@@ -36,7 +36,7 @@
 - **Main layout** (`src/ui/handler.rs`):
   - Content block: width 60, height 45. `start_x = (term_width - 60) / 2`, `start_y = (term_height - 45) / 2`. Header drawn at `(start_x, start_y)`, footer at bottom; body uses same `start_x` and wraps to `width`. On resize, `update_dimensions` recomputes `start_x`, `start_y`, and `width = min(term_width, 60)`.
 
-**Implication for mushroom**: (1) Loading view: one centered “box” (e.g. 40×20 or similar), random-character rectangle with inner line “Loading mushroom.gyeongho.dev” or “LOADING STORE” style. (2) Main view: full view (header + body + footer) treated as one block and centered with `lipgloss.Place(m.Width, m.Height, Center, Center, …)`; internal content width capped (e.g. 60) so the block does not over-stretch on large terminals.
+**Implication for shop**: (1) Loading view: one centered “box” (e.g. 40×20 or similar), random-character rectangle with inner line “Loading shop.gyeongho.dev” or “LOADING STORE” style. (2) Main view: full view (header + body + footer) treated as one block and centered with `lipgloss.Place(m.Width, m.Height, Center, Center, …)`; internal content width capped (e.g. 60) so the block does not over-stretch on large terminals.
 
 **Alternatives considered**: Deviating from terminal.shop layout was rejected per user requirement.
 
@@ -52,7 +52,7 @@
 
 - **Charset**: Standard Base64 = `A–Z`, `a–z`, `0–9`, `+`, `/`. For a “random string square”, either (a) generate N random bytes and Base64-encode to get a string, then display in a rectangular grid, or (b) pick random characters from the Base64 set and fill the grid. Both yield a Base64-looking rectangle; (b) is simpler and avoids line-break handling in Base64.
 - **Placement**: Rectangle centered in terminal: same as terminal.shop loader—compute box width/height (e.g. 40×20), then `start_x = (term_width - boxWidth) / 2`, `start_y = (term_height - boxHeight) / 2`. In Bubble Tea we have no direct cursor positioning; we build a string that, when rendered, shows the rectangle centered. So build a string of (boxWidth * boxHeight) chars (or lines of boxWidth), then center that block with `lipgloss.Place(termWidth, termHeight, Center, Center, rectangleString)`.
-- **Inner text**: Like terminal.shop, reserve an inner region (e.g. 20×3) and show “Loading mushroom.gyeongho.dev” or “LOADING STORE” centered on the middle line; rest of inner area can be spaces or subtle styling.
+- **Inner text**: Like terminal.shop, reserve an inner region (e.g. 20×3) and show “Loading shop.gyeongho.dev” or “LOADING STORE” centered on the middle line; rest of inner area can be spaces or subtle styling.
 
 **Alternatives considered**: Plain alphanumeric (no +, /) was considered; including full Base64 set is a small change and better matches “Base64 인코딩된” wording.
 

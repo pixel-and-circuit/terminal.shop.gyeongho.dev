@@ -7,7 +7,7 @@
 
 ## Layout Concepts (TUI State)
 
-This feature does not introduce new domain entities (Product, Cart, etc.); those remain defined in [001-ssh-mushroom-tui/data-model.md](../001-ssh-mushroom-tui/data-model.md). The following describe layout/viewport state used by the TUI for centering and responsiveness.
+This feature does not introduce new domain entities (Product, Cart, etc.); those remain defined in [001-ssh-shop-tui/data-model.md](../001-ssh-shop-tui/data-model.md). The following describe layout/viewport state used by the TUI for centering and responsiveness.
 
 ### Viewport (terminal dimensions)
 
@@ -33,7 +33,7 @@ No new structs required; the full view string (header + body + footer) is passed
 |------------|-------------|
 | Loading    | Boolean: when true, show loading screen; when false, show main view. |
 | Box size   | Loading rectangle dimensions (e.g. 40×20) for the random-character box, centered in viewport. |
-| Inner text | Centered line inside the box (e.g. "Loading mushroom.gyeongho.dev" or "LOADING STORE"). |
+| Inner text | Centered line inside the box (e.g. "Loading shop.gyeongho.dev" or "LOADING STORE"). |
 
 Implementation: build a string representing the rectangle (random Base64-style chars, inner line centered), then center that string in the viewport with Lip Gloss. No persistent storage; loading state is in-memory only.
 

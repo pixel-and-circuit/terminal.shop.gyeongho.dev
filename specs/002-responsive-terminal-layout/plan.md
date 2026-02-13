@@ -6,7 +6,7 @@
 
 ## Summary
 
-Make mushroom.gyeongho.dev TUI responsive and centered: (1) entire UI block (header, menu, body) centered horizontally and vertically in the terminal; (2) first screen a loading view with a centered random-character (Base64-style) rectangle matching terminal.shop’s loader; (3) layout and loading behavior aligned with terminal.shop’s loader and main layout. Implement within the existing Go + Bubble Tea TUI; use `tea.WindowSizeMsg` for dimensions and Lip Gloss placement for centering; add a loading phase before the main view.
+Make shop.gyeongho.dev TUI responsive and centered: (1) entire UI block (header, menu, body) centered horizontally and vertically in the terminal; (2) first screen a loading view with a centered random-character (Base64-style) rectangle matching terminal.shop’s loader; (3) layout and loading behavior aligned with terminal.shop’s loader and main layout. Implement within the existing Go + Bubble Tea TUI; use `tea.WindowSizeMsg` for dimensions and Lip Gloss placement for centering; add a loading phase before the main view.
 
 ## Technical Context
 
@@ -18,7 +18,7 @@ Make mushroom.gyeongho.dev TUI responsive and centered: (1) entire UI block (hea
 **Project Type**: Single (existing Go module).  
 **Performance Goals**: Resize/layout update within 2 seconds (per spec SC-002).  
 **Constraints**: UI/UX must match terminal.shop: centered content block, loading screen with centered random-character box, menu and body in the center of the terminal.  
-**Scale/Scope**: Same binary as 001-ssh-mushroom-tui; no new services or APIs.
+**Scale/Scope**: Same binary as 001-ssh-shop-tui; no new services or APIs.
 
 ## Constitution Check
 
@@ -58,10 +58,10 @@ internal/tui/
 ├── footer.go        # No structural change
 └── pages/           # Optional: ensure body content respects max width for centering
 
-cmd/mushroom/main.go # Optional: trigger loading phase (e.g. delay or Init cmd) then run Program
+cmd/shop/main.go # Optional: trigger loading phase (e.g. delay or Init cmd) then run Program
 ```
 
-**Structure Decision**: Single Go module unchanged. All work in `internal/tui` (and optionally `cmd/mushroom`). Layout and loading screen follow terminal.shop’s loader and handler (centered box, start_x/start_y semantics).
+**Structure Decision**: Single Go module unchanged. All work in `internal/tui` (and optionally `cmd/shop`). Layout and loading screen follow terminal.shop’s loader and handler (centered box, start_x/start_y semantics).
 
 ## Complexity Tracking
 

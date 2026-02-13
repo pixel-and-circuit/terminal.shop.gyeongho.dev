@@ -5,12 +5,12 @@
 
 ## Prerequisites
 
-Same as the main project: Go 1.21+, Make. See [001-ssh-mushroom-tui/quickstart.md](../001-ssh-mushroom-tui/quickstart.md) for pre-commit and CI.
+Same as the main project: Go 1.21+, Make. See [001-ssh-shop-tui/quickstart.md](../001-ssh-shop-tui/quickstart.md) for pre-commit and CI.
 
 ## What This Feature Adds
 
 - **Centered layout**: Menu (header) and body are centered in the terminal (horizontal and vertical). Resizing the terminal recenters the block.
-- **Loading screen**: First screen shows a centered “Base64-style” random-character rectangle with an inner line (e.g. “Loading mushroom.gyeongho.dev”), matching terminal.shop’s loader layout. After a short delay (or when load completes), the main view appears, also centered.
+- **Loading screen**: First screen shows a centered “Base64-style” random-character rectangle with an inner line (e.g. “Loading shop.gyeongho.dev”), matching terminal.shop’s loader layout. After a short delay (or when load completes), the main view appears, also centered.
 - **Responsiveness**: Layout updates on `tea.WindowSizeMsg`; no refresh or reload required.
 
 ## Commands (unchanged)
@@ -25,11 +25,11 @@ Same as the main project: Go 1.21+, Make. See [001-ssh-mushroom-tui/quickstart.m
 
 ```bash
 make build
-./bin/mushroom
+./bin/shop
 ```
 
 1. **Loading screen**: You should see a centered rectangle of random characters with a loading message in the middle. It may animate (new random chars) for ~2 seconds.
-2. **Main view**: Then the main view appears: header (mushroom, a shop, s about, d faq, cart) and body centered in the terminal.
+2. **Main view**: Then the main view appears: header (shop, a shop, s about, d faq, cart) and body centered in the terminal.
 3. **Resize**: Resize the terminal window; the whole block (header + menu + body + footer) should recenter and remain usable without horizontal overflow.
 
 ## Verify Across Sizes

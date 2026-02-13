@@ -3,15 +3,15 @@
 **Feature Branch**: `002-responsive-terminal-layout`  
 **Created**: 2026-02-11  
 **Status**: Draft  
-**Input**: User description: "mushroom.gyeongho.dev는 어떤 터미널을 사용하던, 터미널의 사이즈가 어떻던 자동으로 크기에 맞춰 최적화되어야 한다"
+**Input**: User description: "shop.gyeongho.dev는 어떤 터미널을 사용하던, 터미널의 사이즈가 어떻던 자동으로 크기에 맞춰 최적화되어야 한다"
 
-**Terminology**: In this spec, "site" and "app" both refer to the mushroom.gyeongho.dev TUI (terminal user interface).
+**Terminology**: In this spec, "site" and "app" both refer to the shop.gyeongho.dev TUI (terminal user interface).
 
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - View Content in Any Terminal Size (Priority: P1)
 
-A user opens mushroom.gyeongho.dev in their terminal (whether iTerm2, Windows Terminal, GNOME Terminal, or another emulator). Regardless of the current terminal width and height, the content and layout automatically adapt so that the experience is readable, navigable, and free of avoidable horizontal scrolling or cut-off content.
+A user opens shop.gyeongho.dev in their terminal (whether iTerm2, Windows Terminal, GNOME Terminal, or another emulator). Regardless of the current terminal width and height, the content and layout automatically adapt so that the experience is readable, navigable, and free of avoidable horizontal scrolling or cut-off content.
 
 **Why this priority**: Core value of the feature—the site must be usable at any size from the first load.
 
@@ -19,16 +19,16 @@ A user opens mushroom.gyeongho.dev in their terminal (whether iTerm2, Windows Te
 
 **Acceptance Scenarios**:
 
-1. **Given** a user has a terminal open at 80 columns × 24 rows, **When** they open mushroom.gyeongho.dev, **Then** the content is laid out to fit the width and key information is visible without horizontal scrolling.
+1. **Given** a user has a terminal open at 80 columns × 24 rows, **When** they open shop.gyeongho.dev, **Then** the content is laid out to fit the width and key information is visible without horizontal scrolling.
 2. **Given** a user has a terminal at 160 columns × 40 rows, **When** they open the site, **Then** the layout uses the available space appropriately (e.g. no excessive narrow columns or wasted space).
 3. **Given** the user is using any common terminal emulator (e.g. iTerm2, Windows Terminal, Alacritty), **When** they open the site, **Then** the optimized layout behaves consistently.
-4. **Given** the user opens the app for the first time, **When** the initial screen is shown, **Then** a centered loading view is displayed with a random-character (Base64-style) rectangle and an inner loading message (e.g. "Loading mushroom.gyeongho.dev") before the main view appears.
+4. **Given** the user opens the app for the first time, **When** the initial screen is shown, **Then** a centered loading view is displayed with a random-character (Base64-style) rectangle and an inner loading message (e.g. "Loading shop.gyeongho.dev") before the main view appears.
 
 ---
 
 ### User Story 2 - Layout Updates When Terminal Is Resized (Priority: P2)
 
-A user has mushroom.gyeongho.dev open. They resize the terminal window (e.g. make it narrower or wider). The layout updates to match the new dimensions so that the experience stays optimal without requiring a refresh or reload.
+A user has shop.gyeongho.dev open. They resize the terminal window (e.g. make it narrower or wider). The layout updates to match the new dimensions so that the experience stays optimal without requiring a refresh or reload.
 
 **Why this priority**: Ensures the benefit holds not only at initial load but also when the user changes their environment.
 
@@ -44,7 +44,7 @@ A user has mushroom.gyeongho.dev open. They resize the terminal window (e.g. mak
 
 ### User Story 3 - Consistent Experience Across Terminal Types (Priority: P3)
 
-A user switches between different terminals (e.g. laptop vs SSH session, different emulators). mushroom.gyeongho.dev delivers a consistently optimized experience: layout adapts to the actual dimensions reported by each terminal, so the same “fit to size” behavior applies regardless of which client is used.
+A user switches between different terminals (e.g. laptop vs SSH session, different emulators). shop.gyeongho.dev delivers a consistently optimized experience: layout adapts to the actual dimensions reported by each terminal, so the same “fit to size” behavior applies regardless of which client is used.
 
 **Why this priority**: Supports users who use multiple environments and avoids “works in one terminal, broken in another.”
 
@@ -78,7 +78,7 @@ A user switches between different terminals (e.g. laptop vs SSH session, differe
 
 ### Assumptions
 
-- “Terminal” means a character-based terminal or TUI environment where mushroom.gyeongho.dev is displayed (e.g. SSH, local terminal emulator).
+- “Terminal” means a character-based terminal or TUI environment where shop.gyeongho.dev is displayed (e.g. SSH, local terminal emulator).
 - Terminal size is defined by visible columns and rows (or equivalent) that the environment provides or that can be detected.
 - A “reasonable” minimum size (e.g. 80×24 or similar) is assumed for defining “readable”; smaller sizes may use a minimal or scroll-only layout.
 - No specific maximum size is mandated; “very large” terminals are handled by sensible use of width (e.g. max line length or column limits) rather than stretching indefinitely.
@@ -88,7 +88,7 @@ A user switches between different terminals (e.g. laptop vs SSH session, differe
 
 ### Measurable Outcomes
 
-- **SC-001**: Users can read and navigate the main content of mushroom.gyeongho.dev at terminal sizes from 80×24 up to 240×60 without needing to manually fix layout (e.g. no mandatory horizontal scroll for primary content).
+- **SC-001**: Users can read and navigate the main content of shop.gyeongho.dev at terminal sizes from 80×24 up to 240×60 without needing to manually fix layout (e.g. no mandatory horizontal scroll for primary content).
 - **SC-002**: When the user resizes the terminal, the layout updates to match the new size within 2 seconds so that the view is always consistent with current dimensions.
 - **SC-003**: The same terminal dimensions produce an equivalent optimized experience across at least three different terminal types (e.g. iTerm2, Windows Terminal, one Linux emulator).
 - **SC-004**: At least 90% of test sessions (across a set of common sizes and terminals) complete without layout-related blocking issues (e.g. unreadable text, broken navigation, or persistent overflow).

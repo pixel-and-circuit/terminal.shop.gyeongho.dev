@@ -1,13 +1,13 @@
-# Implementation Plan: Rebrand from Mushroom to Shop
+# Implementation Plan: Rebrand to Shop
 
-**Branch**: `003-mushroom-to-shop` | **Date**: 2025-02-13 | **Spec**: [spec.md](./spec.md)  
-**Input**: Feature specification from `specs/003-mushroom-to-shop/spec.md`
+**Branch**: `003-rebrand-to-shop` | **Date**: 2025-02-13 | **Spec**: [spec.md](./spec.md)  
+**Input**: Feature specification from `specs/003-rebrand-to-shop/spec.md`
 
-**User input (planning)**: GitHub repository path will change later; Go package name must change from mushroom to shop. Search "mushroom" across all files and apply appropriate changes. README must describe that gyeongho sells all products. Comprehensively investigate UI and test impact and apply changes correctly.
+**User input (planning)**: GitHub repository path will change later; Go package name must change to shop. Search for previous store identifiers across all files and apply appropriate changes. README must describe that gyeongho sells all products. Comprehensively investigate UI and test impact and apply changes correctly.
 
 ## Summary
 
-Rebrand the TUI from "mushroom" to "shop": (1) change Go module from `mushroom.gyeongho.dev` to `shop.gyeongho.dev` and update all imports and the `cmd/` directory name to `cmd/shop` with binary `bin/shop`; (2) replace all user-facing and internal references to "mushroom" (store name, domain, loader text, about/FAQ copy) with "shop" and shop.gyeongho.dev; (3) update README and AGENTS.md to describe the shop as selling all products gyeongho provides (mushrooms, embedded devices, robots, etc.); (4) update tests and fixtures (import paths, loader assertions, about/store content) so UI and tests remain correct.
+Rebrand the TUI to "shop": (1) change Go module to `shop.gyeongho.dev` and update all imports and the `cmd/` directory name to `cmd/shop` with binary `bin/shop`; (2) replace all user-facing and internal references to the previous store name and domain with "shop" and shop.gyeongho.dev; (3) update README and AGENTS.md to describe the shop as selling all products gyeongho provides (produce, embedded devices, robots, etc.); (4) update tests and fixtures (import paths, loader assertions, about/store content) so UI and tests remain correct.
 
 ## Technical Context
 
@@ -19,7 +19,7 @@ Rebrand the TUI from "mushroom" to "shop": (1) change Go module from `mushroom.g
 **Project Type**: single (one Go module at repo root)  
 **Performance Goals**: Same as existing TUI (responsive, no regressions)  
 **Constraints**: Quality gate `make format` and `make build` must pass; tests must pass  
-**Scale/Scope**: Single binary; all source under `cmd/mushroom` → `cmd/shop`, `internal/`, `tests/`
+**Scale/Scope**: Single binary; all source under `previous cmd directory → `cmd/shop`, `internal/`, `tests/`
 
 ## Constitution Check
 
@@ -38,7 +38,7 @@ Verify alignment with `.specify/memory/constitution.md`:
 ### Documentation (this feature)
 
 ```text
-specs/003-mushroom-to-shop/
+specs/003-rebrand-to-shop/
 ├── plan.md              # This file
 ├── research.md          # Phase 0 output
 ├── data-model.md        # Phase 1 output
@@ -50,7 +50,7 @@ specs/003-mushroom-to-shop/
 ### Source Code (repository root)
 
 ```text
-cmd/shop/                 # TUI entrypoint (renamed from cmd/mushroom)
+cmd/shop/                 # TUI entrypoint
 internal/
   model/                 # Domain (Product, Cart, Order, StoreInfo, FAQ) – unchanged structure
   apiclient/             # client, mock, http – import paths and copy (about, default URL) updated
@@ -62,7 +62,7 @@ tests/
 bin/shop                 # Build output (Makefile: bin/shop from cmd/shop)
 ```
 
-**Structure Decision**: Single Go module; directory rename `cmd/mushroom` → `cmd/shop` and module rename `mushroom.gyeongho.dev` → `shop.gyeongho.dev`. No new packages or directories; only renames and string/copy updates.
+**Structure Decision**: Single Go module; directory rename to `cmd/shop` and module rename to `shop.gyeongho.dev`. No new packages or directories; only renames and string/copy updates.
 
 ## Complexity Tracking
 

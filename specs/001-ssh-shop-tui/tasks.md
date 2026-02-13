@@ -1,6 +1,6 @@
-# Tasks: SSH-Based Mushroom Sales TUI
+# Tasks: SSH-Based Shop TUI
 
-**Input**: Design documents from `/specs/001-ssh-mushroom-tui/`  
+**Input**: Design documents from `/specs/001-ssh-shop-tui/`  
 **Prerequisites**: plan.md, spec.md, research.md, data-model.md, contracts/
 
 **Tests**: TDD requested in feature—tests are written first per user story, then implementation.
@@ -16,7 +16,7 @@
 ## Path Conventions
 
 - **Single project** (plan.md): `cmd/`, `internal/`, `tests/` at repository root
-- Paths use: `cmd/mushroom/`, `internal/model/`, `internal/apiclient/`, `internal/tui/`, `internal/tui/pages/`, `tests/unit/`, `tests/integration/`
+- Paths use: `cmd/shop/`, `internal/model/`, `internal/apiclient/`, `internal/tui/`, `internal/tui/pages/`, `tests/unit/`, `tests/integration/`
 
 ---
 
@@ -24,9 +24,9 @@
 
 **Purpose**: Project initialization and basic structure
 
-- [x] T001 Create project structure per plan.md: cmd/mushroom/, internal/model/, internal/apiclient/, internal/tui/, internal/tui/pages/, tests/unit/, tests/integration/
+- [x] T001 Create project structure per plan.md: cmd/shop/, internal/model/, internal/apiclient/, internal/tui/, internal/tui/pages/, tests/unit/, tests/integration/
 - [x] T002 Initialize Go module and add Charm dependencies (github.com/charmbracelet/bubbletea, lipgloss, bubbles) in go.mod at repo root
-- [x] T003 [P] Add Makefile with targets format (gofmt/goimports), build (go build -o bin/mushroom ./cmd/mushroom), test (go test ./...) at repo root
+- [x] T003 [P] Add Makefile with targets format (gofmt/goimports), build (go build -o bin/shop ./cmd/shop), test (go test ./...) at repo root
 - [x] T004 [P] Add .pre-commit-config.yaml for format and commitlint hooks at repo root
 - [x] T005 [P] Add GitHub Actions workflow for CI (format check, make build, make test) in .github/workflows/ci.yml
 
@@ -42,7 +42,7 @@
 - [x] T007 Define API client interface (GetProducts, GetAbout, GetFAQ, GetCart, AddToCart, SubmitOrder) in internal/apiclient/client.go
 - [x] T008 Implement mock API client satisfying interface with static data in internal/apiclient/mock.go
 - [x] T009 Create root Bubble Tea model (CurrentPage enum, width/height, scroll, products/cart/about/faq state) and Init/Update/View stubs in internal/tui/app.go
-- [x] T010 Create main entry that runs tea.NewProgram with root model and injects API client in cmd/mushroom/main.go
+- [x] T010 Create main entry that runs tea.NewProgram with root model and injects API client in cmd/shop/main.go
 - [x] T011 Create key binding constants (keys a, s, d, c, up, down, q, ctrl+c) in internal/tui/keys.go
 
 **Checkpoint**: Foundation ready—binary runs with minimal View; API client injectable; user story implementation can begin
@@ -73,7 +73,7 @@
 
 ---
 
-## Phase 4: User Story 2 - Shop: Browse and Order Mushrooms (Priority: P2)
+## Phase 4: User Story 2 - Shop: Browse and Order Products (Priority: P2)
 
 **Goal**: User opens Shop (a), sees product list with scroll, selects product, adds to cart; can open cart (c) and complete checkout.
 
@@ -145,10 +145,10 @@
 **Purpose**: Improvements that affect multiple user stories
 
 - [x] T039 [P] Add loading/splash screen (terminal.shop-style) before first content in internal/tui/loader.go
-- [x] T040 [P] Add real HTTP client implementation calling mushroom.gyeongho.dev/api per contracts/openapi.yaml in internal/apiclient/http.go
+- [x] T040 [P] Add real HTTP client implementation calling shop.gyeongho.dev/api per contracts/openapi.yaml in internal/apiclient/http.go
 - [x] T041 Handle network/API errors: show user-friendly message and retry or back in internal/tui/app.go
 - [x] T042 Run quickstart.md validation: make format, make build, make test from repo root
-- [x] T043 Update README.md with project layout, Makefile targets, quickstart link (specs/001-ssh-mushroom-tui/quickstart.md), and SSH run instructions
+- [x] T043 Update README.md with project layout, Makefile targets, quickstart link (specs/001-ssh-shop-tui/quickstart.md), and SSH run instructions
 
 ---
 

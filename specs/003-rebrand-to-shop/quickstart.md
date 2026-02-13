@@ -1,16 +1,16 @@
-# Quickstart: Rebrand from Mushroom to Shop
+# Quickstart: Rebrand to Shop
 
-**Feature**: 003-mushroom-to-shop  
+**Feature**: 003-rebrand-to-shop  
 **Spec**: [spec.md](./spec.md) | **Plan**: [plan.md](./plan.md)
 
 ## Prerequisites
 
-Same as the main project: Go 1.21+, Make. See [001-ssh-mushroom-tui/quickstart.md](../001-ssh-mushroom-tui/quickstart.md) for pre-commit and CI.
+Same as the main project: Go 1.21+, Make. See [001-ssh-shop-tui/quickstart.md](../001-ssh-shop-tui/quickstart.md) for pre-commit and CI.
 
 ## Repository layout (after implementation)
 
 ```text
-cmd/shop/              # TUI entrypoint (renamed from cmd/mushroom)
+cmd/shop/              # TUI entrypoint (renamed from previous cmd entry)
 internal/model/        # Domain structs (unchanged)
 internal/apiclient/    # Client interface + mock + HTTP (imports and copy updated)
 internal/tui/          # Bubble Tea app, loader, pages (loader text updated)

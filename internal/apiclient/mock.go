@@ -14,42 +14,42 @@ func (MockClient) GetProducts(ctx context.Context) ([]model.Product, error) {
 	return []model.Product{
 		{
 			ID:          "1",
-			Name:        "Oyster Mushroom",
+			Name:        "Oyster",
 			Attributes:  []string{"fresh"},
 			Price:       800,
-			Description: "Oyster mushroom (Neutari), per 100g.",
+			Description: "Oyster (Neutari), per 100g.",
 			Quantity:    100,
 		},
 		{
 			ID:          "2",
-			Name:        "Enoki Mushroom",
+			Name:        "Enoki",
 			Attributes:  []string{"fresh"},
 			Price:       350,
-			Description: "Enoki mushroom (Paeng-i), per 100g.",
+			Description: "Enoki (Paeng-i), per 100g.",
 			Quantity:    100,
 		},
 		{
 			ID:          "3",
-			Name:        "Button Mushroom",
+			Name:        "Button",
 			Attributes:  []string{"fresh"},
 			Price:       2000,
-			Description: "Button mushroom (Yang song-i), per 100g.",
+			Description: "Button (Yang song-i), per 100g.",
 			Quantity:    100,
 		},
 		{
 			ID:          "4",
-			Name:        "King Oyster Mushroom",
+			Name:        "King Oyster",
 			Attributes:  []string{"fresh"},
 			Price:       300,
-			Description: "King oyster mushroom (Sae song-i), per 100g.",
+			Description: "King oyster (Sae song-i), per 100g.",
 			Quantity:    100,
 		},
 		{
 			ID:          "5",
-			Name:        "Shiitake Mushroom",
+			Name:        "Shiitake",
 			Attributes:  []string{"fresh"},
 			Price:       700,
-			Description: "Shiitake mushroom (Pyogo), per 100g.",
+			Description: "Shiitake (Pyogo), per 100g.",
 			Quantity:    100,
 		},
 	}, nil
@@ -60,7 +60,7 @@ func (MockClient) GetAbout(ctx context.Context) (model.StoreInfo, error) {
 	return model.StoreInfo{
 		ID:    "about",
 		Title: "shop.gyeongho.dev",
-		Body:  "Welcome to shop.gyeongho.dev. We sell all products gyeongho provides: mushrooms, embedded devices, robots, and more. SSH store at shop.gyeongho.dev.",
+		Body:  "Welcome to shop.gyeongho.dev. We sell all products gyeongho provides: produce, embedded devices, robots, and more. SSH store at shop.gyeongho.dev.",
 	}, nil
 }
 
@@ -69,7 +69,7 @@ func (MockClient) GetFAQ(ctx context.Context) ([]model.FAQEntry, error) {
 	return []model.FAQEntry{
 		{ID: "faq-1", Question: "How do I order?", Answer: "Use key (a) for Shop, add to cart, then (c) for cart and checkout."},
 		{ID: "faq-2", Question: "What payment do you accept?", Answer: "Payment options are configured at checkout."},
-		{ID: "faq-3", Question: "What do you sell?", Answer: "We sell all products gyeongho provides: mushrooms, embedded devices, robots, and more."},
+		{ID: "faq-3", Question: "What do you sell?", Answer: "We sell all products gyeongho provides: produce, embedded devices, robots, and more."},
 	}, nil
 }
 

@@ -1,6 +1,6 @@
-# Research: SSH-Based Mushroom Sales TUI
+# Research: SSH-Based Shop TUI
 
-**Feature**: 001-ssh-mushroom-tui  
+**Feature**: 001-ssh-shop-tui  
 **Purpose**: Resolve technical context and align with terminal.shop clone UI/UX and tooling.
 
 ---
@@ -44,14 +44,14 @@
 
 ## 3. HTTP Client Abstraction
 
-**Decision**: Define an API client interface (e.g. `GetProducts`, `GetAbout`, `GetFAQ`, `GetCart`, `AddToCart`, `SubmitOrder`) in `internal/apiclient`. Provide a real implementation that calls `mushroom.gyeongho.dev/api` and a mock implementation for tests.
+**Decision**: Define an API client interface (e.g. `GetProducts`, `GetAbout`, `GetFAQ`, `GetCart`, `AddToCart`, `SubmitOrder`) in `internal/apiclient`. Provide a real implementation that calls `shop.gyeongho.dev/api` and a mock implementation for tests.
 
 **Rationale**: Server not yet implemented; abstracting the client keeps TUI and domain logic independent of HTTP and allows tests to run without a backend.
 
 **Findings**:
 
 - Interface in Go: e.g. `type Client interface { GetProducts(ctx) ([]model.Product, error); ... }`.
-- Real client: `http.Client` + base URL `https://mushroom.gyeongho.dev/api` (or configurable).
+- Real client: `http.Client` + base URL `https://shop.gyeongho.dev/api` (or configurable).
 - Mock: In-memory struct implementing the same interface; return fixed data or configurable responses for tests.
 - TUI and services depend on the interface, not `*http.Client`; inject real or mock in `main` and tests.
 
@@ -115,7 +115,7 @@
 **Findings**:
 
 - `format`: e.g. `gofmt -s -w .` and/or `goimports -w .`.
-- `build`: `go build -o bin/mushroom ./cmd/mushroom` (or similar).
+- `build`: `go build -o bin/shop ./cmd/shop` (or similar).
 - `test`: `go test ./...`.
 - Optional: `lint` with golangci-lint; document in quickstart.
 

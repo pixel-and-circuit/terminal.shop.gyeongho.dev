@@ -1,15 +1,15 @@
-# Data Model: SSH-Based Mushroom Sales TUI
+# Data Model: SSH-Based Shop TUI
 
-**Feature**: 001-ssh-mushroom-tui  
+**Feature**: 001-ssh-shop-tui  
 **Source**: [spec.md](./spec.md) Key Entities + terminal.shop clone
 
 ---
 
 ## Domain Entities
 
-### Product (Mushroom)
+### Product
 
-Represents a sellable mushroom product.
+Represents a sellable product.
 
 | Field         | Type     | Description |
 |---------------|----------|-------------|

@@ -102,11 +102,11 @@ func TestCartBackspaceRemovesSelectedIntegration(t *testing.T) {
 	if len(mod.Cart.Items) != 1 {
 		t.Fatalf("expected 1 item after Backspace, got %d", len(mod.Cart.Items))
 	}
-	if mod.Cart.Items[0].Name != "Oyster Mushroom" {
-		t.Errorf("expected remaining item Oyster Mushroom, got %s", mod.Cart.Items[0].Name)
+	if mod.Cart.Items[0].Name != "Oyster" {
+		t.Errorf("expected remaining item Oyster, got %s", mod.Cart.Items[0].Name)
 	}
 	view := mod.View()
-	if !strings.Contains(view, "Oyster Mushroom") || strings.Contains(view, "Enoki") {
-		t.Errorf("cart view should show only Oyster Mushroom, got:\n%s", view)
+	if !strings.Contains(view, "Oyster") || strings.Contains(view, "Enoki") {
+		t.Errorf("cart view should show only Oyster, got:\n%s", view)
 	}
 }
