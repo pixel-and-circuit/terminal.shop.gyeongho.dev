@@ -15,3 +15,6 @@ Thumbs.db
 *.log
 .env
 .env.*
+
+# SSH host key (created by Wish when running ./bin/shop --ssh)
+.ssh/
