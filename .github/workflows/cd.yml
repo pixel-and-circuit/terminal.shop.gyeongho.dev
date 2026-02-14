@@ -1,0 +1,56 @@
+name: CD
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'infra/**'
+      - '*.md'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+
+      - name: Cache go modules
+        uses: actions/cache@v4
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+
+      - name: Test
+        run: make test
+
+      - name: Build Linux binary
+        run: make build-linux
+
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+
+      - name: Upload binary
+        run: |
+          scp -P 2222 -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+            bin/shop-linux ubuntu@${{ secrets.DEPLOY_HOST }}:/tmp/shop
+
+      - name: Deploy and restart service
+        run: |
+          ssh -p 2222 -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+            ubuntu@${{ secrets.DEPLOY_HOST }} '\
+            sudo mv /tmp/shop /opt/shop/bin/shop && \
+            sudo chown shop:shop /opt/shop/bin/shop && \
+            sudo chmod +x /opt/shop/bin/shop && \
+            sudo systemctl restart shop'
+
+      - name: Verify service status
+        run: |
+          sleep 2
+          ssh -p 2222 -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+            ubuntu@${{ secrets.DEPLOY_HOST }} 'sudo systemctl status shop --no-pager'

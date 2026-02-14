@@ -94,16 +94,20 @@ key_pair_name = "shop-deploy"
 
 > Lightsail also creates a **default key pair** per region that you can download from the console. If you prefer that, skip this step — the default key will be used automatically.
 
-#### 3. GitHub Actions secrets (for Terraform Plan CI)
+#### 3. GitHub Actions secrets
 
-If you want the Terraform Plan workflow to run on PRs, add these secrets in your GitHub repo → **Settings** → **Secrets and variables** → **Actions** → **New repository secret**:
+Add these secrets in your GitHub repo → **Settings** → **Secrets and variables** → **Actions** → **New repository secret**:
 
 | Secret | Value | How to get it |
 |--------|-------|---------------|
 | `AWS_ACCESS_KEY_ID` | Access key from step 1 | IAM Console → User → Security credentials |
 | `AWS_SECRET_ACCESS_KEY` | Secret key from step 1 | Shown once at creation time |
+| `DEPLOY_HOST` | Lightsail static IP | `make infra-output` |
+| `DEPLOY_SSH_KEY` | Contents of `~/.ssh/shop-deploy` private key | `cat ~/.ssh/shop-deploy` |
 
-These are only needed for the CI workflow. Local `make infra-*` commands use your `aws configure` credentials.
+- `AWS_*` secrets are used by the Terraform Plan CI workflow.
+- `DEPLOY_*` secrets are used by the CD workflow to auto-deploy on push to `main`.
+- Local `make infra-*` and `make deploy` commands use your local credentials.
 
 ### Architecture
 
