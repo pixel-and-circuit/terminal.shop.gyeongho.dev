@@ -24,6 +24,8 @@ func NewServer(addr, hostKeyPath string, handler bubbletea.Handler) (*ssh.Server
 		wish.WithHostKeyPath(hostKeyPath),
 		wish.WithIdleTimeout(defaultIdleTimeout),
 		wish.WithMaxTimeout(defaultMaxTimeout),
+		ssh.PublicKeyAuth(func(ssh.Context, ssh.PublicKey) bool { return true }),
+		ssh.PasswordAuth(func(ssh.Context, string) bool { return true }),
 		wish.WithMiddleware(
 			bubbletea.Middleware(handler),
 			activeterm.Middleware(),
