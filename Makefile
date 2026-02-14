@@ -51,13 +51,14 @@ infra-output:
 # ---------------------------------------------------------------------------
 
 LIGHTSAIL_IP ?= $(shell cd infra && terraform output -raw instance_public_ip 2>/dev/null)
-SSH_CMD = ssh -p 2222 -o StrictHostKeyChecking=no ubuntu@$(LIGHTSAIL_IP)
+SSH_KEY ?= ~/.ssh/shop-deploy
+SSH_CMD = ssh -p 2222 -i $(SSH_KEY) -o StrictHostKeyChecking=no ubuntu@$(LIGHTSAIL_IP)
 
 deploy: build-linux deploy-binary deploy-restart
 	@echo "Done. Test: ssh shop.gyeongho.dev"
 
 deploy-binary:
-	scp -P 2222 -o StrictHostKeyChecking=no bin/shop-linux ubuntu@$(LIGHTSAIL_IP):/tmp/shop
+	scp -P 2222 -i $(SSH_KEY) -o StrictHostKeyChecking=no bin/shop-linux ubuntu@$(LIGHTSAIL_IP):/tmp/shop
 	$(SSH_CMD) 'sudo mv /tmp/shop /opt/shop/bin/shop && sudo chown shop:shop /opt/shop/bin/shop && sudo chmod +x /opt/shop/bin/shop'
 
 deploy-restart:
@@ -72,4 +73,4 @@ deploy-logs:
 	$(SSH_CMD) 'sudo journalctl -u shop -n 50 --no-pager'
 
 deploy-ssh:
-	ssh -p 2222 ubuntu@$(LIGHTSAIL_IP)
+	ssh -p 2222 -i $(SSH_KEY) ubuntu@$(LIGHTSAIL_IP)
