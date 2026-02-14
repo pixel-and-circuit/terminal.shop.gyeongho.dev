@@ -23,8 +23,8 @@
 
 **Purpose**: Verify environment and add Wish/testsession dependencies.
 
-- [ ] T001 Verify feature branch `004-ssh-shop-access` and that `specs/004-ssh-shop-access/` contains plan.md, spec.md, research.md, data-model.md, quickstart.md, contracts/
-- [ ] T002 Add Charm Wish and middlewares to go.mod: `github.com/charmbracelet/wish`, `github.com/charmbracelet/wish/bubbletea`, `github.com/charmbracelet/wish/activeterm`, `github.com/charmbracelet/wish/logging`; add `golang.org/x/crypto/ssh` for testsession client in tests
+- [x] T001 Verify feature branch `004-ssh-shop-access` and that `specs/004-ssh-shop-access/` contains plan.md, spec.md, research.md, data-model.md, quickstart.md, contracts/
+- [x] T002 Add Charm Wish and middlewares to go.mod: `github.com/charmbracelet/wish`, `github.com/charmbracelet/wish/bubbletea`, `github.com/charmbracelet/wish/activeterm`, `github.com/charmbracelet/wish/logging`; add `golang.org/x/crypto/ssh` for testsession client in tests
 
 ---
 
@@ -34,10 +34,10 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete.
 
-- [ ] T003 [P] Implement stub tea handler returning a minimal tea.Model (e.g. single "Connected" message) for SSH session in `cmd/shop/ssh_handler.go` or `internal/ssh/handler.go`
-- [ ] T004 Create Wish server in `cmd/shop/main.go`: `wish.NewServer` with `WithAddress`, `WithHostKeyPath`, `WithMiddleware(bubbletea.Middleware(stub), activeterm.Middleware(), logging.Middleware())`
-- [ ] T005 Add mode switch in `cmd/shop/main.go`: when `--ssh` or env `SHOP_SSH=1`, run Wish server (`ListenAndServe` + signal handling); otherwise run existing local TUI (`tea.NewProgram(m).Run()`)
-- [ ] T006 Configure `WithIdleTimeout` and `WithMaxTimeout` on Wish server (e.g. 30s) in `cmd/shop/main.go` so connections do not hang (spec SC-002)
+- [x] T003 [P] Implement stub tea handler returning a minimal tea.Model (e.g. single "Connected" message) for SSH session in `cmd/shop/ssh_handler.go` or `internal/ssh/handler.go`
+- [x] T004 Create Wish server in `cmd/shop/main.go`: `wish.NewServer` with `WithAddress`, `WithHostKeyPath`, `WithMiddleware(bubbletea.Middleware(stub), activeterm.Middleware(), logging.Middleware())`
+- [x] T005 Add mode switch in `cmd/shop/main.go`: when `--ssh` or env `SHOP_SSH=1`, run Wish server (`ListenAndServe` + signal handling); otherwise run existing local TUI (`tea.NewProgram(m).Run()`)
+- [x] T006 Configure `WithIdleTimeout` and `WithMaxTimeout` on Wish server (e.g. 30s) in `cmd/shop/main.go` so connections do not hang (spec SC-002)
 
 **Checkpoint**: Running `./bin/shop --ssh` (or equivalent) starts an SSH server; connecting yields stub TUI. Foundation ready for user stories.
 
@@ -51,9 +51,9 @@
 
 ### Implementation for User Story 1
 
-- [ ] T007 [US1] Replace stub tea handler with real handler in `cmd/shop/ssh_handler.go` (or `internal/ssh/handler.go`): from `ssh.Session` get PTY, use `bubbletea.MakeRenderer(s)`, build `tui.Model` with Width/Height from `pty.Window` and inject `apiclient.Client`, return model and `[]tea.ProgramOption{tea.WithAltScreen()}`
-- [ ] T008 [US1] Pre-load products, about, FAQ in handler (or ensure `Model.Init()` runs) so TUI shows content after connection in `cmd/shop/ssh_handler.go` or `internal/ssh/handler.go`
-- [ ] T009 [P] [US1] Add testsession test in `tests/ssh/connect_test.go` (or `tests/integration/ssh_connect_test.go`): start Wish server with `testsession.Listen` or `testsession.New`, obtain client session, assert output contains expected TUI strings (e.g. header or "Shop"), and assert that at least one full flow (e.g. view product and add to cart) can be completed in the same session (spec SC-003)
+- [x] T007 [US1] Replace stub tea handler with real handler in `cmd/shop/ssh_handler.go` (or `internal/ssh/handler.go`): from `ssh.Session` get PTY, use `bubbletea.MakeRenderer(s)`, build `tui.Model` with Width/Height from `pty.Window` and inject `apiclient.Client`, return model and `[]tea.ProgramOption{tea.WithAltScreen()}`
+- [x] T008 [US1] Pre-load products, about, FAQ in handler (or ensure `Model.Init()` runs) so TUI shows content after connection in `cmd/shop/ssh_handler.go` or `internal/ssh/handler.go`
+- [x] T009 [P] [US1] Add testsession test in `tests/ssh/connect_test.go` (or `tests/integration/ssh_connect_test.go`): start Wish server with `testsession.Listen` or `testsession.New`, obtain client session, assert output contains expected TUI strings (e.g. header or "Shop"), and assert that at least one full flow (e.g. view product and add to cart) can be completed in the same session (spec SC-003)
 
 **Checkpoint**: User Story 1 complete. `ssh` to server shows full shop TUI; navigation and flows work. Can demo as MVP.
 
@@ -67,8 +67,8 @@
 
 ### Implementation for User Story 2
 
-- [ ] T010 [US2] Add graceful shutdown in `cmd/shop/main.go`: on SIGINT/SIGTERM call `s.Shutdown(ctx)` with 30s timeout so server stops cleanly and in-flight connections end
-- [ ] T011 [P] [US2] Add test in `tests/ssh/failure_test.go` that connection attempt to stopped or unreachable server fails with clear error or bounded timeout (e.g. testsession or dial with short timeout)
+- [x] T010 [US2] Add graceful shutdown in `cmd/shop/main.go`: on SIGINT/SIGTERM call `s.Shutdown(ctx)` with 30s timeout so server stops cleanly and in-flight connections end
+- [x] T011 [P] [US2] Add test in `tests/ssh/failure_test.go` that connection attempt to stopped or unreachable server fails with clear error or bounded timeout (e.g. testsession or dial with short timeout)
 
 **Checkpoint**: User Story 2 complete. Connection failures and timeouts behave per spec SC-002.
 
@@ -78,8 +78,8 @@
 
 **Purpose**: Documentation, quality gate, and success-criteria validation.
 
-- [ ] T012 [P] Document `ssh shop.gyeongho.dev` access in `README.md` so new users can discover and use it (spec SC-004)
-- [ ] T013 Run `make format` and `make build`; validate steps in `specs/004-ssh-shop-access/quickstart.md`; validate SC-001 (TUI reachable within 15 seconds) manually per quickstart (e.g. run `ssh` and confirm interface appears within 15s)
+- [x] T012 [P] Document `ssh shop.gyeongho.dev` access in `README.md` so new users can discover and use it (spec SC-004)
+- [x] T013 Run `make format` and `make build`; validate steps in `specs/004-ssh-shop-access/quickstart.md`; validate SC-001 (TUI reachable within 15 seconds) manually per quickstart (e.g. run `ssh` and confirm interface appears within 15s)
 
 ---
 
