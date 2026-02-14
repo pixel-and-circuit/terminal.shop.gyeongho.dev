@@ -14,4 +14,5 @@ const (
 	KeyMinus     = "-"
 	KeyBackspace = "backspace"
 	KeyCtrlC     = "ctrl+c"
+	KeyEscape    = "esc"
 )

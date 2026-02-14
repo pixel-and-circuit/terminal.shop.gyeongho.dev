@@ -45,19 +45,20 @@ func (p Page) String() string {
 
 // Model is the root Bubble Tea model for the TUI.
 type Model struct {
-	Client       apiclient.Client
-	CurrentPage  Page
-	Width        int
-	Height       int
-	ScrollOffset int
-	Cursor       int
-	Products     []model.Product
-	Cart         model.Cart
-	AddQuantity  int // quantity to add on next Enter (Shop page); min 1
-	About        model.StoreInfo
-	FAQ          []model.FAQEntry
-	Loading      bool
-	Error        string
+	Client         apiclient.Client
+	CurrentPage    Page
+	Width          int
+	Height         int
+	ScrollOffset   int
+	Cursor         int
+	Products       []model.Product
+	Cart           model.Cart
+	AddQuantity    int // quantity to add on next Enter (Shop page); min 1
+	About          model.StoreInfo
+	FAQ            []model.FAQEntry
+	Loading        bool
+	Error          string
+	OrderModalOpen bool // true when showing "order coming soon" modal
 }
 
 // NewModel returns an initial model with the given API client.
@@ -84,6 +85,13 @@ func (m Model) Init() tea.Cmd {
 func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
+		if m.OrderModalOpen {
+			if msg.String() == KeyEnter || msg.String() == KeyEscape {
+				m.OrderModalOpen = false
+				return m, nil
+			}
+			return m, nil
+		}
 		switch msg.String() {
 		case KeyCtrlC, KeyQuit:
 			return m, tea.Quit
@@ -153,6 +161,10 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			}
 			return m, nil
 		case KeyEnter:
+			if m.CurrentPage == PageCart && len(m.Cart.Items) > 0 {
+				m.OrderModalOpen = true
+				return m, nil
+			}
 			if m.CurrentPage == PageShop && len(m.Products) > 0 && m.Cursor >= 0 && m.Cursor < len(m.Products) {
 				p := m.Products[m.Cursor]
 				if p.Quantity > 0 {
@@ -178,11 +190,20 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 const (
-	maxContentWidth = 60
-	headerLines     = 3
-	footerLines     = 2
-	maxBodyHeight   = 40
+	maxContentWidth   = 60
+	headerLines       = 3
+	footerLines       = 2
+	maxBodyHeight     = 40
+	orderModalWidth   = 44
+	orderModalTitle   = "Order"
+	orderModalBody    = "We'll support ordering in the future."
+	orderModalDismiss = "Press Enter or Esc to close."
 )
+
+var orderModalStyle = lipgloss.NewStyle().
+	Width(orderModalWidth).
+	Border(lipgloss.RoundedBorder()).
+	Padding(0, 2)
 
 // View returns the current frame: a centered loading view or a centered main view
 // (header, body, footer). Layout is responsive to Width and Height; output is
@@ -248,6 +269,11 @@ func (m Model) View() string {
 	if len(mainViewLines) > h {
 		mainViewLines = mainViewLines[:h]
 		mainView = strings.Join(mainViewLines, "\n")
+	}
+	if m.OrderModalOpen {
+		modalContent := orderModalTitle + "\n\n" + orderModalBody + "\n\n" + orderModalDismiss
+		modalBox := orderModalStyle.Render(modalContent)
+		return lipgloss.Place(w, h, lipgloss.Center, lipgloss.Center, modalBox)
 	}
 	return lipgloss.Place(w, h, lipgloss.Center, lipgloss.Center, mainView)
 }
