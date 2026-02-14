@@ -18,3 +18,7 @@ Thumbs.db
 
 # SSH host key (created by Wish when running ./bin/shop --ssh)
 .ssh/
+
+# Terraform (infra/ has its own .gitignore for details)
+infra/*.tfstate*
+infra/.terraform/
