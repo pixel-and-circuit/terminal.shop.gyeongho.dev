@@ -21,7 +21,7 @@ import (
 )
 
 const (
-	sshPortDefault  = "2222"
+	sshPortDefault  = "22"
 	sshHostKeyPath  = ".ssh/id_ed25519"
 	shutdownTimeout = 30 * time.Second
 )
