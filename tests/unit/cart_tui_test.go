@@ -219,3 +219,60 @@ func TestCartViewEmptyNoCursor(t *testing.T) {
 		t.Errorf("Empty cart view should contain empty message, got:\n%s", view)
 	}
 }
+
+// U8: On Cart with items, Enter opens order modal (Fake Door).
+func TestCartEnterWithItemsOpensOrderModal(t *testing.T) {
+	m := tui.NewModel(apiclient.MockClient{})
+	m.CurrentPage = tui.PageCart
+	m.Cart.Items = []model.CartItem{
+		{ProductID: "1", Name: "A", UnitPrice: 10, Quantity: 1},
+	}
+	updated, _ := m.Update(tea.KeyMsg{Type: tea.KeyEnter})
+	mod := updated.(tui.Model)
+	if !mod.OrderModalOpen {
+		t.Errorf("expected OrderModalOpen true after Enter on cart with items, got false")
+	}
+}
+
+// U9: On Cart when empty, Enter does not open modal.
+func TestCartEnterEmptyCartNoModal(t *testing.T) {
+	m := tui.NewModel(apiclient.MockClient{})
+	m.CurrentPage = tui.PageCart
+	m.Cart.Items = nil
+	updated, _ := m.Update(tea.KeyMsg{Type: tea.KeyEnter})
+	mod := updated.(tui.Model)
+	if mod.OrderModalOpen {
+		t.Errorf("expected OrderModalOpen false when cart empty and Enter, got true")
+	}
+}
+
+// U10: When order modal is open, Enter or Esc closes it.
+func TestOrderModalCloseWithEnterOrEscape(t *testing.T) {
+	m := tui.NewModel(apiclient.MockClient{})
+	m.CurrentPage = tui.PageCart
+	m.OrderModalOpen = true
+	m.Cart.Items = []model.CartItem{{ProductID: "1", Name: "A", UnitPrice: 10, Quantity: 1}}
+	updated, _ := m.Update(tea.KeyMsg{Type: tea.KeyEnter})
+	mod := updated.(tui.Model)
+	if mod.OrderModalOpen {
+		t.Errorf("expected OrderModalOpen false after Enter in modal, got true")
+	}
+	m.OrderModalOpen = true
+	updated, _ = m.Update(tea.KeyMsg{Type: tea.KeyEscape})
+	mod = updated.(tui.Model)
+	if mod.OrderModalOpen {
+		t.Errorf("expected OrderModalOpen false after Esc in modal, got true")
+	}
+}
+
+// U11: On Cart, Keep shopping (a) navigates to Shop.
+func TestCartKeepShoppingGoesToShop(t *testing.T) {
+	m := tui.NewModel(apiclient.MockClient{})
+	m.CurrentPage = tui.PageCart
+	m.Cart.Items = []model.CartItem{{ProductID: "1", Name: "A", UnitPrice: 10, Quantity: 1}}
+	updated, _ := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'a'}})
+	mod := updated.(tui.Model)
+	if mod.CurrentPage != tui.PageShop {
+		t.Errorf("expected PageShop after a on Cart (keep shopping), got %v", mod.CurrentPage)
+	}
+}
